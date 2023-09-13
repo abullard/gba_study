@@ -1,0 +1,16 @@
+{
+    "configurations": [
+        {
+            "name": "Linux",
+            "includePath": [
+                "${workspaceFolder}/**",
+                "/opt/devkitpro/libgba/**",
+                "/opt/devkitpro/libtonc/**",
+                "${workspaceFolder}/tonc/code/tonclib/**"
+            ],
+            "cStandard": "c23",
+            "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc"
+        }
+    ],
+    "version": 4
+}
