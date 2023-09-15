@@ -1,10 +1,7 @@
 playground/main
 
-src/template/build/**
-src/template/*.elf
-src/template/*.sav
-src/template/*.gba
+src/template/build
 
-**/*.elf
-**/*.sav
-**/*.gba
+*.elf
+*.sav
+*.gba
