@@ -4,11 +4,14 @@
             "name": "Linux",
             "includePath": [
                 "${workspaceFolder}/**",
-                "/opt/devkitpro/libgba/**",
-                "/opt/devkitpro/libtonc/**",
-                "${workspaceFolder}/tonc/code/tonclib/**"
+                "${workspaceFolder}/tonc/code/tonclib/include",
+                "/opt/devkitpro/libgba/include",
+                "/opt/devkitpro/libtonc/include"
             ],
-            "cStandard": "c23",
+            "defines": [],
+            "cStandard": "c17",
+            "cppStandard": "gnu++17",
+            "intelliSenseMode": "linux-gcc-arm",
             "compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc"
         }
     ],

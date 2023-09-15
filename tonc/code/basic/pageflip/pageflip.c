@@ -14,6 +14,7 @@ void load_gfx()
 	int ii;
 	for(ii=0; ii<16; ii++)
 	{
+		// 144 is 72 (576 sizeof frontBitmap / 8, 1 byte) * 2. Not sure why this would need size_t of 144?
 		memcpy(&vid_mem_front[ii*120], &frontBitmap[ii*144/4], 144);
 		memcpy(&vid_mem_back[ii*120], &backBitmap[ii*144/4], 144);
 	}

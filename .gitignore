@@ -1,0 +1,10 @@
+playground/main
+
+src/template/build/**
+src/template/*.elf
+src/template/*.sav
+src/template/*.gba
+
+**/*.elf
+**/*.sav
+**/*.gba

@@ -20,8 +20,9 @@ typedef struct
 #define MEM_VRAM 0x06000000
 
 // #define REG_DISPCNT *(u32 *)(IO_MEM_REG + 0x0000) 			// DOES NOT WORK
-#define REG_DISPCNT *(vu32 *)IO_MEM_REG		// DOES WORK?
-// AJB: volatile means it can change, so don't pre-optimize it so the display control register wasn't volatile.
+#define REG_DISPCNT *(vu32 *)IO_MEM_REG // DOES WORK?
+// AJB: volatile means it can change, so don't let the compiler pre-optimize
+// non-volatile pointers
 
 #define vid_mem ((COLOR *)MEM_VRAM)
 
@@ -33,21 +34,19 @@ typedef struct
 
 int main()
 {
-	int ix, iy;
 	// display mode 3, with background 2
 	REG_DISPCNT = MODE_3 | BG2;
 
+	int ix, iy;
 	u16 clr = 0x001F;
-	POINT a;
-	a.x = 50;
-	a.y = 15;
-	u32 m3_width = SCREEN_WIDTH * 2;
-	u16 *vram_start_loc = (COLOR *)(vid_mem + m3_width * a.y + 2 * a.x);
+	u16 *vram_start_loc = (COLOR *)(vid_mem);
 
-	for (ix = 0; ix < SCREEN_WIDTH - 1; ix++)
+	for (iy = 0; iy < SCREEN_HEIGHT; iy++)
 	{
-
-		vram_start_loc[ix] = clr;
+		for (ix = 0; ix < SCREEN_WIDTH; ix++)
+		{
+			*vram_start_loc++ = clr;
+		}
 	}
 
 	// drawPixel(120, 80, 0x001F);
