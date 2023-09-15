@@ -106,7 +106,7 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
     ```
 10. This is bound to change, so I'm simply noting that you'll need to figure it out. There are some files `.vscode/c_cpp_properties.json` & `.vscode/settings.json` that spell out intellisense properties for C and devkitARM. Properties to be aware of:
     * `"compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc"` helps intellisense stop complaining about C header files
-    * the `includePath` tells VS Code where to look for devkitARM GBA headerfiles
+    * the `includePath` tells VS Code where to look for devkitARM GBA headerfiles:
     ```
     "includePath": [
         "${workspaceFolder}/**",
@@ -114,6 +114,7 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
         "/opt/devkitpro/libtonc/**"
     ],
     ```
+  NOTE: If you change your `compilerPath`, it may wipe out your `includePath`. I saw this happen, and had my go-to-definition break
 
 ##### Austin Bullard (summarized steps from James Grimwood) on 07/21/2023
 *This document is subject to change, and will probably need refined the next time we install stuff, change it then*
