@@ -6,7 +6,12 @@
         "gba_types.h": "c",
         "stdint.h": "c",
         "stdio.h": "c",
-        "gba_pic.h": "c"
+        "gba_pic.h": "c",
+        "toolbox.h": "c",
+        "memmap.h": "c",
+        "memdef.h": "c",
+        "input.h": "c",
+        "metr.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

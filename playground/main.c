@@ -1,7 +1,10 @@
 #include <stdio.h>
 
+#define ALIGN_WORD __attribute__((aligned(4))) // Align 4 BYTES (32 bits)
+
 typedef unsigned short u16;
 typedef unsigned int u32;
+typedef signed short s16;
 
 static inline void decimalToBinary(int num)
 {
@@ -30,21 +33,9 @@ static inline void decimalToBinary(int num)
 
 int main(void)
 {
-    u32 vid_page = 0x06000000 + 0x0A000;
-    u32 reg_disp_ctl = 0x0004 | 0x0400;
-
-    u32 stuff = vid_page ^ 0x0A000;
-
-    printf("\nvid_page ");
-    decimalToBinary(vid_page);
-    printf("\nreg_disp_ctl ");
-    decimalToBinary(reg_disp_ctl);
-    printf("\nstuff ");
-    decimalToBinary(stuff);
-
-    u32 idkYet = reg_disp_ctl ^= 0x0010;
-    printf("\nidkYet ");
-    decimalToBinary(idkYet);
+    u16 disp_cnt = 0x1000 | 0x0040; // result: 0001000001000000
+    printf("%d \n", disp_cnt);
+    decimalToBinary(disp_cnt);
 
     printf("\n\nterminating...\n");
     return 0;

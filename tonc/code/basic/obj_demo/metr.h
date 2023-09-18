@@ -1,6 +1,6 @@
 //======================================================================
 //
-//	metr, 64x64@4, 
+//	metr, 64x64@4,
 //	+ palette 32 entries, not compressed
 //	+ 64 tiles not compressed
 //	Total size: 64 + 2048 = 2112
@@ -16,6 +16,7 @@
 
 #define metrPalLen 64
 extern const unsigned int metrPal[16];
+extern const unsigned int metrPalReversed[16];
 
 #define metrTilesLen 2048
 extern const unsigned int metrTiles[512];
@@ -24,7 +25,7 @@ extern const unsigned int metrTiles[512];
 
 //======================================================================
 //
-//	metr_box, 64x64@4, 
+//	metr_box, 64x64@4,
 //	+ 64 tiles not compressed
 //	Total size: 2048 = 2048
 //
@@ -41,4 +42,3 @@ extern const unsigned int metrTiles[512];
 extern const unsigned int metr_boxTiles[512];
 
 #endif // __METR_BOX__
-
