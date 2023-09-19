@@ -7,6 +7,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
 //---------------------------------------------------------------------------------
 // Program entry point
 //---------------------------------------------------------------------------------
@@ -20,14 +21,9 @@ int main(void)
 	irqInit();
 	irqEnable(IRQ_VBLANK);
 
-	consoleDemoInit();
-
-	// ansi escape sequence to set print co-ordinates
-	// /x1b[line;columnH
-	iprintf("\x1b[10;10HHello World!\n");
-
 	while (1)
 	{
 		VBlankIntrWait();
+		
 	}
 }
