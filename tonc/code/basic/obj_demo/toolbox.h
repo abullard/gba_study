@@ -57,7 +57,7 @@ u16 *vid_flip();
 
 // --- Objects  ---
 
-void oam_init(OBJ_ATTR *obj, u32 count);
+void oam_init(OBJ_ATTR *obj);
 void oam_copy(OBJ_ATTR *dst, const OBJ_ATTR *src, u32 count);
 
 INLINE OBJ_ATTR *obj_set_attr(OBJ_ATTR *obj, u16 a0, u16 a1, u16 a2);

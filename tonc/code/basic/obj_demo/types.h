@@ -70,7 +70,7 @@ typedef u16 COLOR;
 typedef struct
 {
 	u32 data[8];
-} TILE, TILE4;
+} TILE, TILE4; // 32 bytes of data
 
 typedef struct
 {

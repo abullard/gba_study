@@ -72,14 +72,13 @@ void gameLoop()
 
 int main()
 {
-	// Places the glyphs of a 4bpp boxed metroid sprite
-	//   into LOW obj memory (cbb == 4)
+	// Places the glyphs of a 4bpp (s-tile) boxed metroid sprite
+	//   into LOW obj memory (charblock base, cbb == 4 which is sprite tiles in VRAM)
 	memcpy(&tile_mem[4][0], metrTiles, metrTilesLen);
+	// places BGR colors into 5mil block of palette RAM, without a palette, tiles will NOT render
 	memcpy(pal_obj_mem, metrPal, metrPalLen);
-	// AJB: i just wanted to see what reversing the pallete would do. changes the colors, oooo fancy
-	// memcpy(pal_obj_mem, metrPalReversed, metrPalLen);
 
-	oam_init(obj_buffer, 128);
+	oam_init(obj_buffer);
 
 	// 0x1000 | 0x0040 result: 0001000001000000, bit 6 is high (1D object mapping mode, tiles are sequential)
 	// bit 12 (C) is high for rendering OBJ layer. 8, 9, A, & B are all low, meaning all backgrounds are off
@@ -87,6 +86,6 @@ int main()
 	REG_DISPCNT = DCNT_OBJ | DCNT_OBJ_1D;
 
 	gameLoop();
-	
+
 	return 0;
 }
