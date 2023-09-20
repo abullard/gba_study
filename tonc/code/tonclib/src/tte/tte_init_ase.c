@@ -77,7 +77,7 @@ void tte_init_ase(int bgnr, u16 bgcnt, u8 ase0, u32 clrs, u32 bupofs,
 	pal_bg_mem[shadow]= clrs>>16;
 				
 	// --- Bup font ---
-	void *dstD= &tile_mem[BFN_GET(bgcnt, BG_CBB)][2*ase0];
+	void *dstD= &tileVRAM[BFN_GET(bgcnt, BG_CBB)][2*ase0];
 	u32 dstS= font->charCount*font->cellSize;
 
 	BUP bup= { dstS, font->bpp, 8, bupofs };

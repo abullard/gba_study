@@ -51,12 +51,12 @@ void init_main()
 	// and once more, with feeling!
 	txt_init_se(0, BG_CBB(0) | BG_SBB(31), 0xE000|TID_FONT3,
 		0, TXT_PID_SHADE);
-	u32 *pwd= (u32*)&tile_mem[0][TID_FONT3];
+	u32 *pwd= (u32*)&tileVRAM[0][TID_FONT3];
 	for(ii=0; ii<96*8; ii++)
 		*pwd++ |= quad8(TXT_PID_BG);
 
 	// extra border initialisation
-	memcpy32(&tile_mem[0][TID_FRAME0], borderTiles, borderTilesLen/4);
+	memcpy32(&tileVRAM[0][TID_FRAME0], borderTiles, borderTilesLen/4);
 	memcpy32(pal_bg_mem, borderPal, borderPalLen/4);
 
 	// overwrite /\ [] `% ^_ to use border tiles

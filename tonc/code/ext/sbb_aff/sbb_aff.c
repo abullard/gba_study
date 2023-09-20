@@ -46,10 +46,10 @@ void init_cross()
 		0x00011100, 0x00100010, 0x01022201, 0x01021201, 
 		0x01022201, 0x00100010, 0x00011100, 0x00000000,
 	}};
-	tile_mem[4][1]= cross;
+	tileVRAM[4][1]= cross;
 
-	pal_obj_mem[0x01]= pal_obj_mem[0x12]= CLR_WHITE;
-	pal_obj_mem[0x02]= pal_obj_mem[0x11]= CLR_BLACK;
+	paletteVRAM[0x01]= paletteVRAM[0x12]= CLR_WHITE;
+	paletteVRAM[0x02]= paletteVRAM[0x11]= CLR_BLACK;
 
 	obj_cross->attr2= 0x0001;
 	obj_disp->attr2= 0x1001;

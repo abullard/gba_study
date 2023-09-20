@@ -86,7 +86,7 @@ void tte_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs,
 		srf->palData[shadow]= clrs>>16;
 
 	// --- Bitunpack font ---
-	void *dstD= &tile_mem[BFN_GET(bgcnt, BG_CBB)][se];
+	void *dstD= &tileVRAM[BFN_GET(bgcnt, BG_CBB)][se];
 	u32 dstS= font->charCount*font->cellSize;
 
 	BUP bup= { dstS, font->bpp, dstB, bupofs };

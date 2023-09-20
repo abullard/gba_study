@@ -20,7 +20,7 @@ void hbl_grad_direct()
 
 	if(irqs & IRQ_HBLANK)
 	{
-		u32 clr= REG_VCOUNT/8;
+		u32 clr= VERT_DRAW_COUNT/8;
 		pal_bg_mem[0]= RGB15(0, clr, 0);
 	}
 

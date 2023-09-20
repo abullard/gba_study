@@ -31,11 +31,30 @@ static inline void decimalToBinary(int num)
     }
 }
 
+enum eKeyIndex
+{
+    KI_A = 0,
+    KI_B,
+    KI_SELECT,
+    KI_START,
+    KI_RIGHT,
+    KI_LEFT,
+    KI_UP,
+    KI_DOWN,
+    KI_R,
+    KI_L,
+    KI_MAX
+};
+
 int main(void)
 {
-    u16 disp_cnt = 0x1000 | 0x0040; // result: 0001000001000000
-    printf("%d \n", disp_cnt);
-    decimalToBinary(disp_cnt);
+
+    u16 __key_curr = 0x0001;
+    u32 aDown = (__key_curr >> KI_A);
+    // u32 bDown = (__key_curr >> KI_B) & 1;
+
+    printf("aDown: %d\n", aDown);
+    // printf("bDown: %d", bDown);
 
     printf("\n\nterminating...\n");
     return 0;

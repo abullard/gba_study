@@ -57,7 +57,7 @@ void txt_init_se(int bgnr, u16 bgcnt, SCR_ENTRY se0, u32 clrs, u32 bupofs)
 	// bup the tiles
 	//BUP bup= { toncfontTilesLen, 1, bpp, base };
 	//BitUnPack(toncfontTiles, &tile_mem[BFN_GET(bgcnt, BG_CBB)][tileofs], &bup);
-	txt_bup_1toX(&tile_mem[BFN_GET(bgcnt, BG_CBB)][se0],
+	txt_bup_1toX(&tileVRAM[BFN_GET(bgcnt, BG_CBB)][se0],
 		toncfontTiles, toncfontTilesLen, bpp, bupofs);
 
 }

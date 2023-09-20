@@ -177,7 +177,7 @@ void init_main()
 	// bgs
 	memcpy32(pal_bg_mem, cagePal, cagePalLen/4);
 	pal_bg_mem[0]= CLR_BLACK;
-	memcpy32(tile_mem[1], cageTiles, cageTilesLen/4);
+	memcpy32(tileVRAM[1], cageTiles, cageTilesLen/4);
 
 	// there are 3 maps in cageMap, which have to be extracted manually
 	// ("ZOMG, HAX!" Yeah. So?)
@@ -192,8 +192,8 @@ void init_main()
 	REG_BG3CNT= BG_CBB(1) | BG_SBB(7) | BG_8BPP | BG_PRIO(2);
 
 	// object
-	memcpy32(&tile_mem[4][1], ballTiles, ballTilesLen/4);
-	memcpy32(pal_obj_mem, ballPal, ballPalLen/4);
+	memcpy32(&tileVRAM[4][1], ballTiles, ballTilesLen/4);
+	memcpy32(paletteVRAM, ballPal, ballPalLen/4);
 
 	// -- init vars ---
 	// init sort list

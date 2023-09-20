@@ -78,7 +78,7 @@ void tte_init_obj(OBJ_ATTR *obj, u32 attr0, u32 attr1, u32 attr2,
 	u32 dstS= font->charCount*font->cellSize;
 
 	BUP bup= { dstS, font->bpp, 4, bupofs };
-	BitUnPack(font->data, &tile_mem[4][tid], &bup);
+	BitUnPack(font->data, &tileVRAM[4][tid], &bup);
 }
 
 // EOF

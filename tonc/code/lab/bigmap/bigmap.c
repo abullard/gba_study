@@ -208,15 +208,15 @@ void init_main()
 	oam_init(obj_buffer, 128);
 
 	// Bigmap setup
-	LZ77UnCompVram(kakarikoTiles, tile_mem[0]);
+	LZ77UnCompVram(kakarikoTiles, tileVRAM[0]);
 	GRIT_CPY(pal_bg_mem, kakarikoPal);
 
 	bgt_init(&g_bg, 1, BG_CBB(0)|BG_SBB(29), kakarikoMap, 
 		128, 128);
 
 	// Object setup
-	GRIT_CPY(pal_obj_mem, link_gfxPal);
-	GRIT_CPY(tile_mem[4], link_gfxTiles);
+	GRIT_CPY(paletteVRAM, link_gfxPal);
+	GRIT_CPY(tileVRAM[4], link_gfxTiles);
 
 	link_init(&g_link, 120<<8, 80<<8, 0);
 
@@ -258,7 +258,7 @@ int main()
 
 		tte_printf("#{es;P}( x, y) = (%d,%d)\n(vx,vy) = (%d,%d)", 
 			x, y, g_vp.x, g_vp.y);
-		pal_bg_mem[0]= REG_VCOUNT;
+		pal_bg_mem[0]= VERT_DRAW_COUNT;
 	}
 
 	return 0;

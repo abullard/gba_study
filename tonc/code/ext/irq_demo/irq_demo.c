@@ -40,7 +40,7 @@ const fnptr vct_isrs[2]=
 // (1) Uses tonc_isr_master.s'  isr_master() as a switchboard
 void hbl_grad_routed()
 {
-	u32 clr= REG_VCOUNT/8;
+	u32 clr= VERT_DRAW_COUNT/8;
 	pal_bg_mem[0]= RGB15(clr, 0, 31-clr);
 }
 
@@ -48,7 +48,7 @@ void hbl_grad_routed()
 void vct_wait()
 {
 	pal_bg_mem[0]= CLR_RED;
-	while(REG_VCOUNT<120);
+	while(VERT_DRAW_COUNT<120);
 }
 
 // As vct_wait(), but interruptable by HBlank
@@ -57,7 +57,7 @@ void vct_wait_nest()
 	pal_bg_mem[0]= CLR_RED;
 	REG_IE= IRQ_HBLANK;		// Allow nested hblanks
 	REG_IME= 1;
-	while(REG_VCOUNT<120);
+	while(VERT_DRAW_COUNT<120);
 }
 
 

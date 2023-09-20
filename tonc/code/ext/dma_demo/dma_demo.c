@@ -63,7 +63,7 @@ void init_main()
 {
 	// --- Init BG 2 (main bg) ---
 	dma3_cpy(pal_bg_mem, brinPal, brinPalLen);
-	dma3_cpy(tile_mem[0], brinTiles, brinTilesLen);
+	dma3_cpy(tileVRAM[0], brinTiles, brinTilesLen);
 	dma3_cpy(se_mem[30], brinMap, brinMapLen);
 
 	//memcpy32(pal_bg_mem, brinPal, brinPalLen/4);
@@ -80,7 +80,7 @@ void init_main()
 		0xF2F3F2F3, 0x3F2F3F2F, 0xF3F2F3F2, 0x2F3F2F3F, 
 		0xF2F3F2F3, 0x3F2F3F2F, 0xF3F2F3F2, 0x2F3F2F3F
 	}};
-	tile_mem[0][32]= tile;
+	tileVRAM[0][32]= tile;
 	pal_bg_bank[4][ 2]= RGB15(12,12,12);
 	pal_bg_bank[4][ 3]= RGB15( 8, 8, 8);
 	pal_bg_bank[4][15]= RGB15( 0, 0, 0);

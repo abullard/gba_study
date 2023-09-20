@@ -24,7 +24,7 @@ void m7_hbl_a()
 {
 	FIXED lam, xs, ys;
 
-	lam= cam_pos.y*lu_div(REG_VCOUNT)>>16;	// .8*.16/.16 = .8
+	lam= cam_pos.y*lu_div(VERT_DRAW_COUNT)>>16;	// .8*.16/.16 = .8
 
 	// Calculate offsets (.8)
 	xs= 120*lam;
@@ -48,7 +48,7 @@ void m7_hbl_b()
 {
 	FIXED lam, xs, ys;
 
-	lam= cam_pos.y*lu_div(REG_VCOUNT)>>12;	// .8*.16/.8 = .12
+	lam= cam_pos.y*lu_div(VERT_DRAW_COUNT)>>12;	// .8*.16/.8 = .12
 
 	// Calculate offsets (.12f)
 	xs= 120*lam;
@@ -71,7 +71,7 @@ void m7_hbl_c()
 {
 	FIXED lam, lcf, lsf, lxr, lyr;
 
-	lam= cam_pos.y*lu_div(REG_VCOUNT)>>12;	// .8*.16 /.12 = 20.12
+	lam= cam_pos.y*lu_div(VERT_DRAW_COUNT)>>12;	// .8*.16 /.12 = 20.12
 	lcf= lam*g_cosf>>8;						// .12*.8 /.8 = .12
 	lsf= lam*g_sinf>>8;						// .12*.8 /.8 = .12
 	

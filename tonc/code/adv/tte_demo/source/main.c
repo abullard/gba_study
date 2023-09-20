@@ -77,7 +77,7 @@ void test_tte_se4()
 
 	// --- Init for 8x16 font and print something ---
 
-	GRIT_CPY(&tile_mem[0][256], cyber16Glyphs);	// Load tiles
+	GRIT_CPY(&tileVRAM[0][256], cyber16Glyphs);	// Load tiles
 	tte_set_font(&cyber16Font);					// Attach font
 	tte_set_drawg(se_drawg_w8h16);				// Attach renderer
 	tte_set_special(SE_BUILD(256, 4, 0, 0));	// Set special cattr
@@ -226,7 +226,7 @@ void test_tte_chr4c()
 
 	// Load map graphics
 	LZ77UnCompVram(dungeon01Map, se_mem[12]);
-	LZ77UnCompVram(dungeon01Tiles, tile_mem[2]);
+	LZ77UnCompVram(dungeon01Tiles, tileVRAM[2]);
 	LZ77UnCompVram(dungeon01Pal, pal_bg_mem);
 
 	// Copy text box and its palette.

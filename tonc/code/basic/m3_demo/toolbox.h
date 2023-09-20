@@ -158,9 +158,9 @@ void bmp16_frame(int left, int top, int right, int bottom, u32 clr,
 //! Wait for next VBlank
 INLINE void vid_vsync()
 {
-	while (REG_VCOUNT >= 160)
+	while (VERT_DRAW_COUNT >= 160)
 		; // wait till VDraw
-	while (REG_VCOUNT < 160)
+	while (VERT_DRAW_COUNT < 160)
 		; // wait till VBlank
 }
 

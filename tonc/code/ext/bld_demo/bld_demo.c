@@ -62,9 +62,9 @@ void test_blend()
 void load_metr()
 {
 	// copy sprite and bg tiles, and the sprite palette
-	memcpy32(&tile_mem[2][0], metrTiles, metrTilesLen/4);
-	memcpy32(&tile_mem[4][0], metrTiles, metrTilesLen/4);
-	memcpy32(pal_obj_mem, metrPal, metrPalLen/4);
+	memcpy32(&tileVRAM[2][0], metrTiles, metrTilesLen/4);
+	memcpy32(&tileVRAM[4][0], metrTiles, metrTilesLen/4);
+	memcpy32(paletteVRAM, metrPal, metrPalLen/4);
 
 	// Set the metroid sprite
 	obj_set_attr(&oam_mem[0], ATTR0_SQUARE | ATTR0_BLEND | ATTR0_Y(24), 
@@ -73,7 +73,7 @@ void load_metr()
 	// Create the metroid bg using inverted palette for bg-metroid
 	int ix, iy;
 	for(ix=0; ix<16; ix++)
-		pal_bg_mem[ix+16]= pal_obj_mem[ix] ^ CLR_WHITE;
+		pal_bg_mem[ix+16]= paletteVRAM[ix] ^ CLR_WHITE;
 
 	SCR_ENTRY *pse= &se_mem[30][3*32+18];	// right-center
 	for(iy=0; iy<8; iy++)
@@ -92,7 +92,7 @@ void load_fence()
 		0x00012000, 0x00012000, 0x00022200, 0x22220222,
 		0x11122211, 0x00112000, 0x00012000, 0x00012000,
 	}};
-	tile_mem[2][64]= fence;
+	tileVRAM[2][64]= fence;
 
 	se_fill(se_mem[29], 64);
 

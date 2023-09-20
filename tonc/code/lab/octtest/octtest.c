@@ -28,7 +28,7 @@ void init_main()
 	GRIT_CPY(pal_bg_mem, octantsPal);
 	for(ii=0; ii<8; ii++)
 		pal_bg_mem[ii+OCT_PAL_START]= CLR_GRAY;
-	LZ77UnCompVram(octantsTiles, tile_mem[0]);
+	LZ77UnCompVram(octantsTiles, tileVRAM[0]);
 	LZ77UnCompVram(octantsMap, se_mem[30]);
 
 	REG_BG2CNT= BG_CBB(0) | BG_SBB(30) | BG_AFF_32x32;
@@ -37,9 +37,9 @@ void init_main()
 	// --- obj ---
 	const TILE dot= 
 	{{ 0, 0, 0x00011000, 0x00122100, 0x00122100, 0x00011000, 0, 0}};
-	tile_mem[4][1]= dot;
-	pal_obj_mem[1]= CLR_LIME;
-	pal_obj_mem[2]= CLR_GREEN;
+	tileVRAM[4][1]= dot;
+	paletteVRAM[1]= CLR_LIME;
+	paletteVRAM[2]= CLR_GREEN;
 	obj_set_attr(&oam_mem[0], ATTR0_SQUARE, ATTR1_SIZE_8, 1);
 
 	// --- text ----

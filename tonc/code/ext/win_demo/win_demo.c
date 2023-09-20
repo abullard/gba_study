@@ -61,7 +61,7 @@ void init_back_map()
 		0x12121221, 0x33123332, 0x33213333, 0x33213333
 	}};
 
-	tile_mem[0][0x30]= back_tile;
+	tileVRAM[0][0x30]= back_tile;
 	
 	pal_bg_mem[0x21]= 0x09BA;
 	pal_bg_mem[0x22]= 0xC0DE;
@@ -79,8 +79,8 @@ void init_back_map()
 // rocket is inside window 0
 void init_rocket()
 {
-	memcpy32(&tile_mem[4][0], rocketTiles, rocketTilesLen/4);
-	memcpy32(pal_obj_mem, rocketPal, rocketPalLen/4);
+	memcpy32(&tileVRAM[4][0], rocketTiles, rocketTilesLen/4);
+	memcpy32(paletteVRAM, rocketPal, rocketPalLen/4);
 
 	OBJ_ATTR *rocket= &oam_mem[ROCKET_OID];
 	obj_set_attr(rocket, ATTR0_SQUARE, ATTR1_SIZE_16, 0);

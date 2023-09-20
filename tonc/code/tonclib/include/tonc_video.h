@@ -359,8 +359,8 @@ INLINE void m5_frame(int left, int top, int right, int bottom, COLOR clr);
 
 INLINE void vid_vsync(void)
 {
-	while(REG_VCOUNT >= 160);   // wait till VDraw
-	while(REG_VCOUNT < 160);    // wait till VBlank
+	while(VERT_DRAW_COUNT >= 160);   // wait till VDraw
+	while(VERT_DRAW_COUNT < 160);    // wait till VBlank
 }
 
 

@@ -122,8 +122,8 @@ void oac_rotscale(OACOMBO *oac)
 
 void init_main()
 {
-	memcpy32(pal_obj_mem, oac_gfxPal, oac_gfxPalLen/4);
-	memcpy32(tile_mem[4], oac_gfxTiles, oac_gfxTilesLen/4);
+	memcpy32(paletteVRAM, oac_gfxPal, oac_gfxPalLen/4);
+	memcpy32(tileVRAM[4], oac_gfxTiles, oac_gfxTilesLen/4);
 
 	oam_init(obj_buffer, 128);
 

@@ -53,9 +53,9 @@ void init_main()
 	pal_bg_mem[255]= CLR_WHITE;
 
 	// init cursor
-	tile_mem[5][0]= cursorTile;
-	pal_obj_mem[1]= CLR_WHITE;
-	pal_obj_mem[2]= CLR_GRAY;
+	tileVRAM[5][0]= cursorTile;
+	paletteVRAM[1]= CLR_WHITE;
+	paletteVRAM[2]= CLR_GRAY;
 }
 
 int main()

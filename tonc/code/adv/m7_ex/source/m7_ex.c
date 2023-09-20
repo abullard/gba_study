@@ -168,7 +168,7 @@ void kart_animate(M7_SPRITE *spr, const M7_CAM *cam)
 	// NOTE 1: Yes, I really do need the s16 for psi here.
 	// NOTE 2: or not, if I used arctan for the angle, like I 
 	//   probably should.
-	TILE *dst= &tile_mem[4][BFN_GET(obj->attr2, ATTR2_ID)];
+	TILE *dst= &tileVRAM[4][BFN_GET(obj->attr2, ATTR2_ID)];
 	s16 psi= spr->phi - cam->phi;
 	
 	// Extra arctan angle for correctness
@@ -222,7 +222,7 @@ void init_main()
 
 	// Setup main bg
 	LZ77UnCompVram(bgPal, pal_bg_mem);
-	LZ77UnCompVram(bc1floorTiles, tile_mem[0]);
+	LZ77UnCompVram(bc1floorTiles, tileVRAM[0]);
 	LZ77UnCompVram(bc1floorMap, se_mem[24]);
 
 	// For fade to orange
@@ -230,13 +230,13 @@ void init_main()
 	pal_bg_mem[0]= CLR_ORANGE;
 
 	// Setup sky bg
-	LZ77UnCompVram(bc1skyTiles, &tile_mem[0][128]);
+	LZ77UnCompVram(bc1skyTiles, &tileVRAM[0][128]);
 	LZ77UnCompVram(bc1skyMap, se_mem[22]);
 
 	// Setup sprites
 	oam_init(oam_mem, 128);
-	LZ77UnCompVram(objPal, pal_obj_mem);
-	LZ77UnCompVram(thwompTiles, &tile_mem[4][16]);
+	LZ77UnCompVram(objPal, paletteVRAM);
+	LZ77UnCompVram(thwompTiles, &tileVRAM[4][16]);
 	init_sprites();
 
 	// Setup menu
@@ -300,11 +300,11 @@ void init_menu()
 		NULL, NULL);
 	tte_init_con();
 
-	u32 *pwd= (u32*)&tile_mem[1][1];
+	u32 *pwd= (u32*)&tileVRAM[1][1];
 	for(ii=0; ii<96*8; ii++)
 		*pwd++ |= octup(8);
 
-	LZ77UnCompVram(borderTiles, &tile_mem[1][128]);
+	LZ77UnCompVram(borderTiles, &tileVRAM[1][128]);
 	GRIT_CPY(pal_bg_bank[15], borderPal);
 
 	se_window(se_mem[7], 6, 4, 24, 11, MENU_FRAME_SE0);

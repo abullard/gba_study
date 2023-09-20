@@ -203,8 +203,8 @@ INLINE u32 key_hit(u32 key)
 //! Wait for next VBlank
 INLINE void vid_vsync()
 {
-	while(REG_VCOUNT >= 160);	// wait till VDraw
-	while(REG_VCOUNT < 160);	// wait till VBlank
+	while(VERT_DRAW_COUNT >= 160);	// wait till VDraw
+	while(VERT_DRAW_COUNT < 160);	// wait till VBlank
 }
 
 //! Create a 15bit BGR color.

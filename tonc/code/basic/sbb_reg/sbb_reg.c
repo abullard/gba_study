@@ -41,8 +41,8 @@ void init_map()
 		{{0x00000000, 0x00100100, 0x01100110, 0x00011000,
 		  0x00011000, 0x01100110, 0x00100100, 0x00000000}},
 	};
-	tile_mem[CBB_0][0]= tiles[0];
-	tile_mem[CBB_0][1]= tiles[1];
+	tileVRAM[CBB_0][0]= tiles[0];
+	tileVRAM[CBB_0][1]= tiles[1];
 
 	// create a palette
 	pal_bg_bank[0][1]= RGB15(31,  0,  0);

@@ -48,7 +48,7 @@ void tte_init_chr4c(int bgnr, u16 bgcnt, u16 se0, u32 cattrs, u32 clrs,
 	TSurface *srf= &tc->dst;
 
 	srf_init(srf, SRF_CHR4C, 
-		&tile_mem[BFN_GET(bgcnt, BG_CBB)][se0 & SE_ID_MASK], 
+		&tileVRAM[BFN_GET(bgcnt, BG_CBB)][se0 & SE_ID_MASK], 
 		SCREEN_WIDTH, SCREEN_HEIGHT, 4, pal_bg_mem);
 	schr4c_prep_map(srf, se_mem[BFN_GET(bgcnt, BG_SBB)], se0);
 

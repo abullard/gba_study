@@ -42,7 +42,7 @@ void txt_init_obj(OBJ_ATTR *obj0, u16 attr2, u32 clrs, u32 bupofs)
 	// bup the tiles
 	//BUP bup= { toncfontTilesLen, 1, 4, bupofs};
 	//BitUnPack(toncfontTiles, &tile_mem[4][tileofs], &bup);
-	txt_bup_1toX(&tile_mem[4][attr2&ATTR2_ID_MASK], toncfontTiles, 
+	txt_bup_1toX(&tileVRAM[4][attr2&ATTR2_ID_MASK], toncfontTiles, 
 		toncfontTilesLen, 4, bupofs);
 }
 
