@@ -12,7 +12,9 @@
         "memdef.h": "c",
         "input.h": "c",
         "metr.h": "c",
-        "gba_input.h": "c"
+        "gba_input.h": "c",
+        "cstdlib": "c",
+        "typeinfo": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

@@ -85,9 +85,9 @@ int main()
 {
 	// Places the glyphs of a 4bpp (s-tile) boxed metroid sprite
 	//   into LOW obj memory (charblock base, cbb == 4 which is sprite tiles in VRAM)
-	memcpy(&tileVRAM[4][0], metrTiles, metrTilesLen);
+	memcpy(&tile_mem[4][0], metrTiles, metrTilesLen);
 	// places BGR colors into 5mil block of palette RAM, without a palette, tiles will NOT render
-	memcpy(paletteVRAM, metrPal, metrPalLen);
+	memcpy(pal_obj_mem, metrPal, metrPalLen);
 
 	oam_init(obj_buffer);
 
