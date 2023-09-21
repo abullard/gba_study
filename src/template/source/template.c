@@ -15,31 +15,29 @@ void gameLoop()
 	int start_x = 96, start_y = 32;
 	u32 tile_id = 0, pal_bank = 0;
 
-	OBJ_ATTR *playerSpriteOamLocation = getAttrForTile(localOamBuffer, 0);
-	
-	// TODO AJB: remove these hardcoded values
-	OBJ_ATTR playerAttrs;
-	playerAttrs.attr0 = 0;	// square sprite
-	playerAttrs.attr1 = 0x8000;	// 32x32 pixel sprite 
-	playerAttrs.attr2 = pal_bank << 12 | tile_id;
+	OBJ_ATTR *playerSpriteOamLocation = getAttrsForTile(localOamBuffer, 0);
 
-	setAttrForTile(playerSpriteOamLocation, playerAttrs);
+	setAttrsForTile(playerSpriteOamLocation,
+					createObjectAttribute(
+						ATTR0_OBJ_MODE_REGULAR | ATTR0_COLOR_MODE_8BPP, // square sprite
+						ATTR1_SIZE_32x32,		// 32x32 pixel sprite
+						pal_bank << 12 | tile_id));
 
-	
+	setTilePosition(playerSpriteOamLocation, start_x, start_y);
 
 	while (1)
 	{
 		// vsync once per frame
 		vsync();
 		inputPolling();
+
+		// apparently we only need to update 1 or something?
+		copyBufferToOam(oamRAM, localOamBuffer, 1);
 	}
 }
 
-
 int main(void)
 {
- 	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ;
-
 	// let's load our graphic into memory
 	// charblock 0-3 (tile_mem[0-3]) are for background data
 	// charblock 4-5 (tile_mem[4-5]) are for sprite data
@@ -49,6 +47,8 @@ int main(void)
 
 	// set OAM to hide sprites at first
 	oamInit(localOamBuffer);
+
+	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ;
 
 	gameLoop();
 
