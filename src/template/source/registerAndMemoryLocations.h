@@ -18,5 +18,7 @@
 
 #define REG_DISPCTL *(vu32 *)(REG_BASE + 0x0000)     // display control
 #define VERT_DRAW_COUNT *(vu16 *)(REG_BASE + 0x0006) // vertical count
+#define REG_BUTTONMASK *(vu16 *)(MEM_IO + 0x0130)
+
 
 #endif // __REGISTERANDMEMEORYLOCATIONS__

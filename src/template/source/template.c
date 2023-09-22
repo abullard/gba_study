@@ -1,35 +1,33 @@
+// sprites
 #include "cat_player.h"
+
+// source code I wrote
 #include "input.h"
 #include "types.h"
 #include "helpers.h"
 #include "registerAndMemoryLocations.h"
 #include "masks.h"
+#include "tiles.h"
+#include "playerController.h"
 
+// C includes
 #include <string.h>
 
 OBJ_ATTR localOamBuffer[128];
+u16 __key_curr, __key_prev;
 
 void gameLoop()
 {
-	// straight up just stole this from tonc
-	int start_x = 96, start_y = 32;
-	u32 tile_id = 0, pal_bank = 0;
-
-	OBJ_ATTR *playerSpriteOamLocation = getAttrsForTile(localOamBuffer, 0);
-
-	setAttrsForTile(playerSpriteOamLocation,
-					createObjectAttribute(
-						ATTR0_OBJ_MODE_REGULAR | ATTR0_COLOR_MODE_8BPP, // square sprite
-						ATTR1_SIZE_32x32,		// 32x32 pixel sprite
-						pal_bank << 12 | tile_id));
-
-	setTilePosition(playerSpriteOamLocation, start_x, start_y);
+	OBJ_ATTR *player = initPlayer(localOamBuffer);
 
 	while (1)
 	{
 		// vsync once per frame
 		vsync();
+		// record input once per frame
 		inputPolling();
+
+		handleMovement(player);
 
 		// apparently we only need to update 1 or something?
 		copyBufferToOam(oamRAM, localOamBuffer, 1);
@@ -38,6 +36,8 @@ void gameLoop()
 
 int main(void)
 {
+	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ;
+
 	// let's load our graphic into memory
 	// charblock 0-3 (tile_mem[0-3]) are for background data
 	// charblock 4-5 (tile_mem[4-5]) are for sprite data
@@ -47,8 +47,6 @@ int main(void)
 
 	// set OAM to hide sprites at first
 	oamInit(localOamBuffer);
-
-	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ;
 
 	gameLoop();
 

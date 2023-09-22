@@ -4,9 +4,22 @@
 #include "helpers.h"
 #include "masks.h"
 
-#define REG_BUTTONMASK *(vu16 *)(MEM_IO + 0x0130)
+extern u16 __key_curr, __key_prev;
 
-u16 __key_curr, __key_prev;
+static inline void inputPolling();
+static inline u32 keyCurrentState();
+static inline u32 keyPreviousState();
+
+static inline u32 keyIsDown(u32 key); // any of key currently down?
+static inline u32 keyIsUp(u32 key);	 // any of key currently up?
+
+static inline u32 keyWasDown(u32 key); // any of key previously down?
+static inline u32 keyWasUp(u32 key);	  // any of key previously up?
+
+static inline u32 keyTransit(u32 key);  // any of key changing?
+static inline u32 keyHeld(u32 key);	  // any of key held down?
+static inline u32 keyHit(u32 key);	  // any of key being hit (going down)?
+static inline u32 keyReleased(u32 key); // any of key being released?
 
 static inline void inputPolling()
 {
@@ -17,38 +30,38 @@ static inline void inputPolling()
     __key_curr = ~REG_BUTTONMASK & KEY_MASK;
 }
 
-static inline u16 keyCurrentState()
+static inline u32 keyCurrentState()
 {
     return __key_curr;
 }
 
-static inline u16 keyPreviousState()
+static inline u32 keyPreviousState()
 {
     return __key_prev;
 }
 
-static inline u16 keyIsDown(u16 key)
+static inline u32 keyIsDown(u32 key)
 {
     return __key_curr & key;
 }
 
-static inline u16 keyIsUp(u16 key)
+static inline u32 keyIsUp(u32 key)
 {
     return ~__key_curr & key;
 }
 
-static inline u16 keyWasDown(u16 key)
+static inline u32 keyWasDown(u32 key)
 {
     return __key_prev & key;
 }
 
-static inline u16 keyWasUp(u16 key)
+static inline u32 keyWasUp(u32 key)
 {
     return ~__key_prev & key;
 }
 
 // key is moving down
-static inline u16 keyTransit(u16 key)
+static inline u32 keyTransit(u32 key)
 {
     // this is an XOR, if it was down in one, but not in the other
     // we've changed state
@@ -56,19 +69,19 @@ static inline u16 keyTransit(u16 key)
 }
 
 // key was pressed in prev and is currently pressed
-static inline u16 keyHeld(u16 key)
+static inline u32 keyHeld(u32 key)
 {
     return (__key_prev & __key_curr) & key;
 }
 
 // key was just pressed this frame
-static inline u16 keyHit(u16 key)
+static inline u32 keyHit(u32 key)
 {
     return (~__key_prev & __key_curr) & key;
 }
 
 // key was just released this frame
-static inline u16 keyReleased(u16 key)
+static inline u32 keyReleased(u32 key)
 {
     return (__key_prev & ~__key_curr) & key;
 }

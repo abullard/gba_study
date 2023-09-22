@@ -14,7 +14,11 @@
         "metr.h": "c",
         "gba_input.h": "c",
         "cstdlib": "c",
-        "typeinfo": "c"
+        "typeinfo": "c",
+        "registerandmemorylocations.h": "c",
+        "helpers.h": "c",
+        "types.h": "c",
+        "masks.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

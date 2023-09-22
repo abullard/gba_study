@@ -3,8 +3,9 @@
 
 #define ALIGN_WORD __attribute__((aligned(4))) // Align 4 BYTES (32 bits)
 
-typedef unsigned int u32, word;
+typedef unsigned char u8, byte;
 typedef unsigned short u16, hword;
+typedef unsigned int u32, word;
 typedef u16 COLOR;
 
 typedef volatile u16 vu16;
