@@ -82,7 +82,7 @@ void obj_copy(OBJ_ATTR *dst, const OBJ_ATTR *src, u32 count);
 // _x needs shifting
 #define BFN_PREP(x, name) (((x) << name##_SHIFT) & name##_MASK)
 #define BFN_GET(y, name) (((y) & name##_MASK) >> name##_SHIFT)
-#define BFN_SET(y, x, name) (y = ((y) & ~name##_MASK) | BFN_PREP(x, name))
+#define BFN_SET(attr, x, name) (attr = ((attr) & ~name##_MASK) | BFN_PREP(x, name))
 
 // x already shifted
 #define BFN_PREP2(x, name) ((x) & name##_MASK)

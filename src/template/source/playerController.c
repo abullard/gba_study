@@ -11,13 +11,13 @@ void handleMovement(OBJ_ATTR *player)
     if (keyHeld(KEY_LEFT))
     {
         playerX += movementSpeed * -1;
-        // playerSpriteOamLocation->attr1 ^= ATTR1_HORIZONTAL_FLIP;
+        flipTileHorizontally(playerSpriteOamLocation, ATTR1_HORIZONTAL_FLIP);
     }
 
     if (keyHeld(KEY_RIGHT))
     {
         playerX += movementSpeed * 1;
-        // playerSpriteOamLocation->attr1 ^= ATTR1_HORIZONTAL_FLIP;
+        flipTileHorizontally(playerSpriteOamLocation, ATTR1_NO_HORIZONTAL_FLIP);
     }
 
     setTilePosition(playerSpriteOamLocation, playerX, playerY);

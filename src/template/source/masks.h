@@ -30,14 +30,18 @@
 #define ATTR0_SPRITE_SHAPE_TALL 0x8000
 
 // TODO AJB: to be frank, i don't know what these do yet.
-#define ATTR0_Y_MASK 0x00FF
-#define ATTR0_Y_SHIFT 0x0000
-#define ATTR1_X_MASK 0x01FF
-#define ATTR1_X_SHIFT 0
+#define ATTR0_POS_Y_MASK 0x00FF // attr0{0-7}, hence 0x00FF, 1111 1111
+#define ATTR0_POS_Y_SHIFT 0x0000
+#define ATTR1_POS_X_MASK 0x01FF // attr1{0-8}, hence 0x01FF, 0001 1111 1111
+#define ATTR1_POS_X_SHIFT 0x0000
 
 // OBJ_ATTR.attr1{12} defines
 // if you want to turn off HFLIP just XOR it with itself
-#define ATTR1_HORIZONTAL_FLIP 0x1000
+#define ATTR1_HORIZONTAL_FLIP 0x1
+#define ATTR1_NO_HORIZONTAL_FLIP 0x0
+
+#define ATTR1_HFLIP_MASK 0x3000
+#define ATTR1_HFLIP_SHIFT 12 // shift 12 bits in to align with attr1
 
 // OBJ_ATTR.attr1{13} defines
 #define ATTR1_VERTICAL_FLIP 0x2000
@@ -53,34 +57,41 @@
 #define ATTR1_SIZE_64 0xC000
 
 // Square sizes
-#define ATTR1_SIZE_8x8 0        
-#define ATTR1_SIZE_16x16 0x4000 
-#define ATTR1_SIZE_32x32 0x8000 
-#define ATTR1_SIZE_64x64 0xC000 
+#define ATTR1_SIZE_8x8 0
+#define ATTR1_SIZE_16x16 0x4000
+#define ATTR1_SIZE_32x32 0x8000
+#define ATTR1_SIZE_64x64 0xC000
 
 // Tall sizes
-#define ATTR1_SIZE_8x16 0       
-#define ATTR1_SIZE_8x32 0x4000  
-#define ATTR1_SIZE_16x32 0x8000 
+#define ATTR1_SIZE_8x16 0
+#define ATTR1_SIZE_8x32 0x4000
+#define ATTR1_SIZE_16x32 0x8000
 #define ATTR1_SIZE_32x64 0xC000
 
 // Wide sizes
-#define ATTR1_SIZE_16x8 0      
-#define ATTR1_SIZE_32x8 0x4000 
+#define ATTR1_SIZE_16x8 0
+#define ATTR1_SIZE_32x8 0x4000
 #define ATTR1_SIZE_32x16 0x8000
 #define ATTR1_SIZE_64x32 0xC000
 
 // input button masks
-#define KEY_A 0x0001	  //!< Button A
-#define KEY_B 0x0002	  //!< Button B
+#define KEY_A 0x0001      //!< Button A
+#define KEY_B 0x0002      //!< Button B
 #define KEY_SELECT 0x0004 //!< Select button
 #define KEY_START 0x0008  //!< Start button
 #define KEY_RIGHT 0x0010  //!< Right D-pad
-#define KEY_LEFT 0x0020	  //!< Left D-pad
-#define KEY_UP 0x0040	  //!< Up D-pad
-#define KEY_DOWN 0x0080	  //!< Down D-pad
-#define KEY_R 0x0100	  //!< Shoulder R
-#define KEY_L 0x0200	  //!< Shoulder L
+#define KEY_LEFT 0x0020   //!< Left D-pad
+#define KEY_UP 0x0040     //!< Up D-pad
+#define KEY_DOWN 0x0080   //!< Down D-pad
+#define KEY_R 0x0100      //!< Shoulder R
+#define KEY_L 0x0200      //!< Shoulder L
 
+
+#define BITFIELD_SHIFT(bitsToUse, name) ((bitsToUse << name##_SHIFT) & name##_MASK)
+
+// AJB: we use the currMask & 1's complmenet (~) of name##_MASK for the bits we care about to set all bits we want to 
+// change to 0, while leaving the rest of the currMask intact. i.e. currMask & ~(0100) => currMask & 1011 => 0001
+// Then we OR with the bitsToUse, which will toggle all the bits we care about to whatever bitsToUse is.
+#define BITFIELD_SET(currMask, bitsToUse, name) (currMask = (currMask & ~name##_MASK) | BITFIELD_SHIFT(bitsToUse, name))
 
 #endif // __MASKS__

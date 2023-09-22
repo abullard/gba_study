@@ -2,6 +2,7 @@
 
 #define ALIGN_WORD __attribute__((aligned(4))) // Align 4 BYTES (32 bits)
 
+typedef unsigned char u8;
 typedef unsigned short u16;
 typedef unsigned int u32;
 typedef signed short s16;
@@ -31,30 +32,12 @@ static inline void decimalToBinary(int num)
     }
 }
 
-enum eKeyIndex
-{
-    KI_A = 0,
-    KI_B,
-    KI_SELECT,
-    KI_START,
-    KI_RIGHT,
-    KI_LEFT,
-    KI_UP,
-    KI_DOWN,
-    KI_R,
-    KI_L,
-    KI_MAX
-};
 
 int main(void)
 {
-
-    u16 __key_curr = 0x0001;
-    u32 aDown = (__key_curr >> KI_A);
-    // u32 bDown = (__key_curr >> KI_B) & 1;
-
-    printf("aDown: %d\n", aDown);
-    // printf("bDown: %d", bDown);
+    u8 x = 0x1;
+    u32 y = x << 12;
+    decimalToBinary(y);
 
     printf("\n\nterminating...\n");
     return 0;

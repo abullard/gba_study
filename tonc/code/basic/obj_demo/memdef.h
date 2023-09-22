@@ -172,7 +172,7 @@
 #define ATTR1_SIZE(n) ((n) << ATTR1_SIZE_SHIFT)
 
 #define ATTR1_BUILDR(x, size, hflip, vflip) \
-	(((x) & 511) | (((hflip) & 1) << 12) | (((vflip) & 1) << 13) | (((size) & 3) << 14))
+	(((x) & 0x511) | (((hflip) & 0x1) << 12) | (((vflip) & 0x1) << 13) | (((size) & 0x3) << 14))
 
 #define ATTR1_BUILDA(x, size, affid) \
 	(((x) & 511) | (((affid) & 31) << 9) | (((size) & 3) << 14))

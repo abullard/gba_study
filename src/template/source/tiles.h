@@ -26,13 +26,18 @@ static inline void setAttrsForTile(OBJ_ATTR *tile, OBJ_ATTR attributes)
     // last 16 bits of OBJ_ATTR are filler space for OBJ_AFFINE alignment
 }
 
-// OBJ_ATTR.attr0{0-7} contain Y position data
-// OBJ_ATTR.attr1{0-8} contain X position data
+// OBJ_ATTR.attr0{0-7} contains Y position data
+// OBJ_ATTR.attr1{0-8} contains X position data
 static inline void setTilePosition(OBJ_ATTR *tile, u32 posX, u32 posY)
 {
-    // TODO AJB: change this to some reuseable
-    tile->attr0 = ((tile->attr0) & ~ATTR0_Y_MASK) | (((posY) << ATTR0_Y_SHIFT) & ATTR0_Y_MASK);
-    tile->attr1 = ((tile->attr1) & ~ATTR1_X_MASK) | (((posX) << ATTR1_X_SHIFT) & ATTR1_X_MASK);
+    BITFIELD_SET(tile->attr0, posY, ATTR0_POS_Y);
+    BITFIELD_SET(tile->attr1, posX, ATTR1_POS_X);
+}
+
+// OBJ_ATTR.attr1{C} contains HFLIP property
+static inline void flipTileHorizontally(OBJ_ATTR *tile, u16 hFlip)
+{
+    BITFIELD_SET(tile->attr1, hFlip, ATTR1_HFLIP);
 }
 
 #endif // __TILES__
