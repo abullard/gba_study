@@ -5,6 +5,7 @@
 #define PAL_BG_SIZE 0x00200
 #define DCNT_OBJ 0x1000    //!< Enable objects
 #define DCNT_OBJ_1D 0x0040 //!< OBJ-VRAM as array
+#define DCNT_BG0 0x0100 //!< OBJ-VRAM as array
 
 // OBJ_ATTR.attr0{8-9} defines
 #define ATTR0_OBJ_MODE_REGULAR 0x0000
@@ -40,7 +41,7 @@
 #define ATTR1_HORIZONTAL_FLIP 0x1
 #define ATTR1_NO_HORIZONTAL_FLIP 0x0
 
-#define ATTR1_HFLIP_MASK 0x3000
+#define ATTR1_HFLIP_MASK 0x1000
 #define ATTR1_HFLIP_SHIFT 12 // shift 12 bits in to align with attr1
 
 // OBJ_ATTR.attr1{13} defines

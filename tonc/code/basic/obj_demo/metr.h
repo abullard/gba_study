@@ -16,7 +16,6 @@
 
 #define metrPalLen 64
 extern const unsigned int metrPal[16];
-extern const unsigned int metrPalReversed[16];
 
 #define metrTilesLen 2048
 extern const unsigned int metrTiles[512];

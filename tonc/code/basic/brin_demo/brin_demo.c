@@ -15,7 +15,7 @@ int main()
 	// Load palette
 	memcpy(pal_bg_mem, brinPal, brinPalLen);
 	// Load tiles into CBB 0
-	memcpy(&tileVRAM[0][0], brinTiles, brinTilesLen);
+	memcpy(&tile_mem[0][0], brinTiles, brinTilesLen);
 	// Load map into SBB 30
 	memcpy(&se_mem[30][0], brinMap, brinMapLen);
 

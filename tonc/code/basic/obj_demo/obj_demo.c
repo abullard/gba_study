@@ -12,6 +12,8 @@
 // basically, obj_buffer covers the entire OAM for us. 
 OBJ_ATTR obj_buffer[128];
 OBJ_AFFINE *obj_aff_buffer = (OBJ_AFFINE *)obj_buffer;
+u16 __key_curr, __key_prev;
+
 
 // testing a few sprite things
 // D-pad: move

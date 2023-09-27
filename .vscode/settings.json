@@ -18,7 +18,10 @@
         "registerandmemorylocations.h": "c",
         "helpers.h": "c",
         "types.h": "c",
-        "masks.h": "c"
+        "masks.h": "c",
+        "cat_player.h": "c",
+        "string.h": "c",
+        "tiles.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

@@ -301,8 +301,8 @@ INLINE int bit_tribool(u32 flags, int plus, int minus)
 //! Wait for next VBlank
 INLINE void vid_vsync()
 {
-	while(VERT_DRAW_COUNT >= 160);   // wait till VDraw
-	while(VERT_DRAW_COUNT < 160);    // wait till VBlank
+	while(REG_VCOUNT >= 160);   // wait till VDraw
+	while(REG_VCOUNT < 160);    // wait till VBlank
 }
 
 //! Create a 15bit BGR color.

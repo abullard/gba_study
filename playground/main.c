@@ -32,11 +32,9 @@ static inline void decimalToBinary(int num)
     }
 }
 
-
 int main(void)
 {
-    u8 x = 0x1;
-    u32 y = x << 12;
+    int y = ((20 >> 3) + 15) & 0x3F;
     decimalToBinary(y);
 
     printf("\n\nterminating...\n");
