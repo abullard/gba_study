@@ -31,7 +31,7 @@ OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
     // charblock 4-5 (tile_mem[4-5]) are for sprite data
     memcpy(&tileVRAM[4][0], cat_playerTiles, cat_playerTilesLen);
     // sprites won't render if we don't load the palette
-    memcpy(paletteVRAM, cat_playerPal, cat_playerPalLen);
+    memcpy(objPaletteVRAM, cat_playerPal, cat_playerPalLen);
 
     // set OAM to hide sprites at first
     oamInit(localOamBuffer);

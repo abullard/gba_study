@@ -6,11 +6,17 @@
 typedef unsigned char u8, byte;
 typedef unsigned short u16, hword;
 typedef unsigned int u32, word;
+typedef signed int s16;
 typedef u16 COLOR;
 typedef u16 SCREEN_ENTRY;
 
 typedef volatile u16 vu16;
 typedef volatile u32 vu32;
+
+typedef struct BG_POINT
+{
+	s16 x, y;
+} ALIGN_WORD BG_POINT;
 
 // 8, 32-bit arrays or 32 bytes of data
 typedef struct
@@ -23,7 +29,7 @@ typedef struct
 typedef TILE CHARBLOCK[512];
 typedef SCREEN_ENTRY SCREENBLOCK[1024];
 
-// 64 bits of memory, last 16 bits help align OBJ_ATTR WITH OBJ_AFFINE, 
+// 64 bits of memory, last 16 bits help align OBJ_ATTR WITH OBJ_AFFINE,
 // since these data structures overlap
 typedef struct
 {
