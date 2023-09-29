@@ -5,7 +5,7 @@
 #define PAL_BG_SIZE 0x00200
 #define DCNT_OBJ 0x1000    //!< Enable objects
 #define DCNT_OBJ_1D 0x0040 //!< OBJ-VRAM as array
-#define DCNT_BG0 0x0100 //!< OBJ-VRAM as array
+#define DCNT_BG0 0x0100    //!< OBJ-VRAM as array
 
 // OBJ_ATTR.attr0{8-9} defines
 #define ATTR0_OBJ_MODE_REGULAR 0x0000
@@ -87,10 +87,32 @@
 #define KEY_R 0x0100      //!< Shoulder R
 #define KEY_L 0x0200      //!< Shoulder L
 
+#define BG_MOSAIC 0x0040 //!< Enable Mosaic
+#define BG_4BPP 0        //!< 4bpp (16 color) bg (no effect on affine bg)
+#define BG_8BPP 0x0080   //!< 8bpp (256 color) bg (no effect on affine bg)
+#define BG_WRAP 0x2000   //!< Wrap around edges of affine bgs
+#define BG_SIZE0 0
+#define BG_SIZE1 0x4000
+#define BG_SIZE2 0x8000
+#define BG_SIZE3 0xC000
+#define BG_REG_32x32 0        //!< reg bg, 32x32 (256x256 px)
+#define BG_REG_64x32 0x4000   //!< reg bg, 64x32 (512x256 px)
+#define BG_REG_32x64 0x8000   //!< reg bg, 32x64 (256x512 px)
+#define BG_REG_64x64 0xC000   //!< reg bg, 64x64 (512x512 px)
+#define BG_AFF_16x16 0        //!< affine bg, 16x16 (128x128 px)
+#define BG_AFF_32x32 0x4000   //!< affine bg, 32x32 (256x256 px)
+#define BG_AFF_64x64 0x8000   //!< affine bg, 64x64 (512x512 px)
+#define BG_AFF_128x128 0xC000 //!< affine bg, 128x128 (1024x1024 px)
+
+#define BG_CBB_SHIFT 2
+#define BG_CBB(n) ((n) << BG_CBB_SHIFT)
+
+#define BG_SBB_SHIFT 8
+#define BG_SBB(n) ((n) << BG_SBB_SHIFT)
 
 #define BITFIELD_SHIFT(bitsToUse, name) ((bitsToUse << name##_SHIFT) & name##_MASK)
 
-// AJB: we use the currMask & 1's complmenet (~) of name##_MASK for the bits we care about to set all bits we want to 
+// AJB: we use the currMask & 1's complmenet (~) of name##_MASK for the bits we care about to set all bits we want to
 // change to 0, while leaving the rest of the currMask intact. i.e. currMask & ~(0100) => currMask & 1011 => 0001
 // Then we OR with the bitsToUse, which will toggle all the bits we care about to whatever bitsToUse is.
 #define BITFIELD_SET(currMask, bitsToUse, name) (currMask = (currMask & ~name##_MASK) | BITFIELD_SHIFT(bitsToUse, name))

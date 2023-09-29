@@ -3,10 +3,10 @@
 
 #define ALIGN_WORD __attribute__((aligned(4))) // Align 4 BYTES (32 bits)
 
-typedef unsigned char u8, byte;
-typedef unsigned short u16, hword;
-typedef unsigned int u32, word;
-typedef signed int s16;
+typedef unsigned char u8;
+typedef unsigned short u16;
+typedef signed short s16;
+typedef unsigned int u32;
 typedef u16 COLOR;
 typedef u16 SCREEN_ENTRY;
 
@@ -27,6 +27,7 @@ typedef struct
 // 1024 bytes of data, the full 6mil addr of VRAM
 // (i think this works for 7mil OAM too?)
 typedef TILE CHARBLOCK[512];
+
 typedef SCREEN_ENTRY SCREENBLOCK[1024];
 
 // 64 bits of memory, last 16 bits help align OBJ_ATTR WITH OBJ_AFFINE,

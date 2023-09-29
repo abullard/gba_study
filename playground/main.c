@@ -34,7 +34,7 @@ static inline void decimalToBinary(int num)
 
 int main(void)
 {
-    int y = ((20 >> 3) + 15) & 0x3F;
+    int y = 6 | (6 << 5) | (6 << 10);
     decimalToBinary(y);
 
     printf("\n\nterminating...\n");

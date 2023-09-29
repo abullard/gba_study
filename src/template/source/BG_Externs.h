@@ -2,12 +2,12 @@
 
 #include "types.h"
 
-#define bgPaletteLen 512
-#define bgTilesLen 1344
-#define bgMapLen 8192
-#define bgCollisionLen 8192
+#define bgPaletteLen 32
+extern const u16 bgPalette[16];
 
-extern const u16 bgPalette[256];
-extern const u16 bgTiles[672];
-extern const u16 bgMap[4096];
-extern const u16 bgCollision[4096];
+#define bgTilesLen 128
+extern const u16 bgTiles[64];
+
+#define bgMapLen 4096
+extern const u16 bgMap[2048];
+

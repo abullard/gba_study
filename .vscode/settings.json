@@ -22,7 +22,8 @@
         "cat_player.h": "c",
         "string.h": "c",
         "tiles.h": "c",
-        "bg_externs.h": "c"
+        "bg_externs.h": "c",
+        "background.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }
