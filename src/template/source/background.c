@@ -7,15 +7,17 @@ const u16 bg3_se_idx = 30;
 
 void initMap()
 {
-    memcpy(bgPaletteVRAM, bgSkyboxPalette, bgSkyboxPaletteLen); // add palette to VRAM
+    memcpy(&bgPaletteVRAM[0], bgSkyboxPalette, bgSkyboxPaletteLen); // add palette to VRAM
+    memcpy(&bgPaletteVRAM[1], bgPlatformsPalette, bgPlatformsPaletteLen); // add palette to VRAM
+
     memcpy(&tileVRAM[2][0], bgSkyboxTiles, bgSkyboxTilesLen);   // add tiles to VRAM
     memcpy(&tileVRAM[1][0], bgPlatformsTiles, bgPlatformsTilesLen);   // add tiles to VRAM
 
-    memcpy(&screenentryVRAM[bg1_se_idx][0], bgPlatformsMap, bgPlatformsMapLen); // BG 1 (platforms)
     memcpy(&screenentryVRAM[bg2_se_idx][0], bgSkyboxMap, bgSkyboxMapLen);       // BG 2 (platforms2)
+    memcpy(&screenentryVRAM[bg1_se_idx][0], bgPlatformsMap, bgPlatformsMapLen); // BG 1 (platforms)
 
-    REG_BG1CTL = BG_SBB(bg1_se_idx) | BG_CBB(0) | BG_REG_64x32 | BG_4BPP | DCTL_BG_PRIORITY_SECOND;
-    REG_BG2CTL = BG_SBB(bg2_se_idx) | BG_CBB(0) | BG_REG_32x32 | BG_4BPP | DCTL_BG_PRIORITY_THIRD;
+    REG_BG1CTL = BG_SBB(bg1_se_idx) | BG_CBB(1) | BG_REG_32x32 | BG_4BPP | DCTL_BG_PRIORITY_SECOND;
+    REG_BG2CTL = BG_SBB(bg2_se_idx) | BG_CBB(2) | BG_REG_32x32 | BG_4BPP | DCTL_BG_PRIORITY_THIRD;
 
     REG_BG2HOFS = 0;
     REG_BG2VOFS = 96;

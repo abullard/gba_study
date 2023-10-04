@@ -9,7 +9,7 @@
 #define MEM_OAM 0x07000000  // no 8bit write !!
 
 #define objPaletteVRAM ((COLOR *)(MEM_PAL + PAL_BG_SIZE))
-#define bgPaletteVRAM ((COLOR *)MEM_PAL)
+#define bgPaletteVRAM ((PALETTE *)MEM_PAL)
 
 #define tileVRAM ((CHARBLOCK *)MEM_VRAM)
 #define oamRAM ((OBJ_ATTR *)MEM_OAM)

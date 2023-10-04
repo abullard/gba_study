@@ -46,7 +46,7 @@ int main(void)
 {
 	initMap();
 
-	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ | DCNT_BG2; //| DCNT_BG0 | DCNT_BG1;
+	REG_DISPCTL = DCNT_OBJ_1D | DCNT_OBJ | DCNT_BG2 | DCNT_BG1; //| DCNT_BG0 ;
 
 	gameLoop();
 

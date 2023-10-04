@@ -39,4 +39,8 @@ typedef struct
 	u16 fill;
 } ALIGN_WORD OBJ_ATTR;
 
+typedef struct {
+	COLOR colors[16];
+} PALETTE;
+
 #endif // __TYPES__
