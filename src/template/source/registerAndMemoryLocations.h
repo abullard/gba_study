@@ -17,6 +17,9 @@
 
 #define REG_DISPCTL *(vu32 *)(MEM_IO + 0x0000) // display control
 #define REG_BG0CTL *(vu16 *)(MEM_IO + 0x0008)  // display control
+#define REG_BG1CTL *(vu16 *)(MEM_IO + 0x000A)  // display control
+#define REG_BG2CTL *(vu16 *)(MEM_IO + 0x000C)  // display control
+#define REG_BG3CTL *(vu16 *)(MEM_IO + 0x000E)  // display control
 
 #define VERT_DRAW_COUNT *(vu16 *)(MEM_IO + 0x0006) // vertical count
 #define REG_BUTTONMASK *(vu16 *)(MEM_IO + 0x0130)

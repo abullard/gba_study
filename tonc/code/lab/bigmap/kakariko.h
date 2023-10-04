@@ -3,10 +3,10 @@
 
 //======================================================================
 //
-//	kakariko, 1024x1024@4, 
+//	kakariko, 1024x1024@4,
 //	+ palette 256 entries, not compressed
 //	+ 319 tiles (t|f|p reduced) lz77 compressed
-//	+ regular map (flat), not compressed, 128x128 
+//	+ regular map (flat), not compressed, 128x128
 //	Total size: 512 + 5936 + 32768 = 39216
 //
 //	Time-stamp: 2007-02-16, 23:41:18

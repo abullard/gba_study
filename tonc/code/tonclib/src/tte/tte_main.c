@@ -245,6 +245,7 @@ char *tte_cmd_skip(const char *str)
 	return (char*)str;
 }
 
+
 //! Move to the next command in a sequence.
 /*!
 	\return	Position of EOS (\'0'), EOC ('}') or next cmd token (rest)

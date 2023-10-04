@@ -1,0 +1,33 @@
+If you been amongs the people looking for doc about how to keep your data 
+within battery saved memory, you've come to the right place. You'll probably 
+feel a bit the fool after seing how easy it is done, like i did. :P
+
+in C, C++ you only need to create a 8bits pointer using an address within :
+0x0E000000 and 0x0E00FFFF. This gives you 64K of memory.
+
+In assembly, it's the same thing.
+
+Note that this area can only be readed or writed 8bits at a time, meaning 
+it's no use trying to write data to it with a 16bits or 32bits pointer, only the
+first 8 bits will get written.
+
+For the visual amongs our horde, here's how you would do it in C++ :
+{
+#define GAMEPAK_RAM  ((u8*)0x0E000000)
+u8 *pSaveMemory = GAMEPAK_RAM;
+
+// Save the initial data for the fibonai sequence
+pSaveMemory[0] = 1;
+pSaveMemory[1] = 1;
+
+for(int i = 2; i < 13; i++)
+    pSaveMemory[i] = pSaveMemory[i-1] + pSaveMemory[i-2];
+}
+
+Here, we have code that write the first 13 number of the fibonaci sequence,
+in the first 13 bytes of the saved ram. Take note that in reality, you shouldn't 
+use that memory for doing your calculations, only for backuping persistent data,
+since it probably has a much more slower access rate.
+
+-------------------------------------------------------------------------------------------------------------------
+SammyF

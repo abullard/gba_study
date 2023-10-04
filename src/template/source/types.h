@@ -24,8 +24,7 @@ typedef struct
 	u32 data[8];
 } TILE, TILE4;
 
-// 1024 bytes of data, the full 6mil addr of VRAM
-// (i think this works for 7mil OAM too?)
+// 16kB of data
 typedef TILE CHARBLOCK[512];
 
 typedef SCREEN_ENTRY SCREENBLOCK[1024];

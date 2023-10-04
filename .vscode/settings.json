@@ -23,7 +23,9 @@
         "string.h": "c",
         "tiles.h": "c",
         "bg_externs.h": "c",
-        "background.h": "c"
+        "background.h": "c",
+        "link.h": "c",
+        "kakariko.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

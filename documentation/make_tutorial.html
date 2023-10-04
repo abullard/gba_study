@@ -1,0 +1,466 @@
+<html>
+	<head>
+	<title>GNU Makefiles Tutorial by MrMr[iCE]</title>
+	</head>
+<body text=#000000 bgcolor=#FFFFFF>
+GNU Makefiles tutorial<br>
+Written by MrMr[iCE]<br>
+Contact me on irc (EFnet, #gbadev, #emuholic, #ice)<br>
+
+<br><br>
+<table border=0 width=100%>
+<th bgcolor=#96B9FD><a name="Top">Table Of Contents</a></th>
+<tr><td>1. <a href="#Introduction">Introduciton</a></td></tr>
+<tr><td>2. <a href="#Example">Simple Example</a></td></tr>
+<tr><td>3. <a href="#Rules">Defining Rules</a></td></tr>
+<tr><td>4. <a href="#Variables">Defining Variables</a></td></tr>
+<tr><td>5. <a href="#Recursive">Recursive Makefiles</a></td></tr>
+<tr><td>6. <a href="#Conditional">Conditional Processing</a></td></tr>
+<tr><td>8. <a href="#Links">Links</a></td></tr>
+<tr><td>9. <a href="#Credits">Credits</a></td></tr>
+</table>
+<br><br>
+
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Introduction"></a>Introduction</th>
+<tr><td>
+	Welcome to my makefile tutorial. Hopefully after you've read this tutorial,
+you might have actually learned something about the wonders that makefiles can
+do for simple and complex projects. Note that this is NOT a tutorial on running
+the GNU commandline tools, its specifically geared to show you how to use GNU
+make to its fullest. This also covers ONLY gnu make and Devkit Advance, but some
+of the concepts can be applied to Visual C++ and ARM SDT users as well. I also
+touch a lot on Gameboy Advance tools like CoG (<a href="http://www.onemanband.com">Converter of Graphics</a>).
+With that said, let's get on with the show.
+</td></tr>
+</table>
+
+<br>
+<br>
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Example"></a>Simple Example</th>
+<tr><td>
+A makefile is text file that tells the make how to build a binary from a
+bunch of seperate files. Note that this does not always have to be an executable
+file, make files can be used to automate many other tasks, like preprocessing
+a large batch of graphic files to include into a Gameboy Advance (I'll call it
+GBA from now on) rom, converting sound files into asm source, etc. But the
+most common use of a makefile is to compile an executable. Usually its just
+called "Makefile" in your source directory with no extension. When you type "make"
+on the console, it will look for a file called makefile and start compiling the project.<br>
+<br>
+Lets say you have a single C file, main.c, and you want to compile it into a GBA rom.
+On the command line, the process would look like:<br>
+<pre>
+gcc -c -mthumb -mthumb-interwork -o myRom.elf main.c
+objcopy -O binary myRom.elf myRom.gba
+</pre>
+line 1 takes main.c, compiles and links to a binary called myRom.elf<br>
+line 2 strips the elf file and gives you the final binary to run on the GBA<br>
+<br>
+
+Honestly, if your project consists of only one .c file and a few headers, this is all
+you really need. But if you want to do the next killer shooter or rpg on the gba,
+chances are you will end up with a directory (or a few directories) of source,
+graphics and sound files, and you'll quickly find out that typing it all out by
+hand or repeating the same command line over and over again in a batch file
+will get on your nerves, and there are much better ways to manage all that.<br>
+
+Now lets put all this into a makefile. First I'll show you the actual makefile:<br>
+<pre>
+CFLAGS = -c -O2
+THUMBMODEL = -mthumb -mthumb-interwork
+
+all: myRom.gba
+
+myRom.gba: myRom.elf
+	objcopy -O binary myRom.elf myRom.gba
+
+myRom.elf: main.o
+	$(CC) -o myRom.elf main.o
+
+main.o: main.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) main.c
+</pre>
+
+Phew! Thats a lot of work to compile one C file. But bear with me, this will lead to
+bigger and better things. Here's a breakdown of the makefile:<br>
+<table border=0 cellpadding=4 cellspacing=12>
+<tr><td><pre>CFLAGS = -c -O2</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0"> This defines a variable called CFLAGS which has common paramaters that we pass to gcc. Defining variables is a feature we'll be abusing in later sections.</td></tr>
+<tr><td><pre>THUMBMODEL = -mthumb -mthumb-interwork</td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">Defines another variable called THUMBMODEL which we use to tell gcc what cpu/link model to use</td></tr>
+<tr><td><pre>all: myRom.gba</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">Here we define the first "rule" for your final binary. "all" is a special case telling make what the final target file will be</td></tr>
+<tr><td><pre>myRom.gba: myRom.elf</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">This is the rule to compile the final gba binary. Note that rules are "target: source" format, meaning whats left of the : is the target we are trying to make, and whats right of the : is whats needed to make the target</td></tr>
+<tr><td><pre>	objcopy -O binary myRom.elf myRom.gba</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">Here we tell make what to do to build the target, in this case, myRom.gba. Note the indentation of the line, make requires a tab before the command so make knows it's a command to run.</td></tr>
+<tr><td><pre>myRom.elf: main.o</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">Another rule. This one tells make how to build the .elf file.</td></tr>
+<tr><td><pre>	$(CC) -o myRom.elf main.o</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">And the command required to build the target (myRom.elf from main.o)</td></tr>
+<tr><td><pre>main.o: main.c</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">Last rule for building main.o. Also notice the $(CC) bit. This is a predefined variable that make provides us for the actual name of the compiler executable on your system.</td></tr>
+<tr><td><pre>	$(CC) $(CFLAGS) $(THUMBMODEL) main.c</pre></td><td>&nbsp</td><td valign="top" bgcolor="#E0E0E0">And heres the command to build main.o from main.c. Here we see the 2 variables we defined in the first 2 lines. When using them in a command line, you wrap the variable with $( and ). In make, this translates to:  <pre>gcc -c -O2 -mthumb -mthumb-interwork main.c</pre></td></tr>
+</table>
+<br>
+
+Now lets complicate things a bit. Lets add another C file to the project, music.c. Now you
+have to compile two c files and link them together to produce your final rom.
+<pre>
+myRom.elf: main.o music.o
+	$(CC) -o myRom.elf main.o music.o
+
+main.o: main.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) main.c
+
+music.o: music.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) music.c
+</pre>
+
+now you see I added another rule to compile music.o, and add music.o to the source files list
+for the myRom.elf rule. As you add more C files, you add more rules to the makefile. But
+that seems kind of lame, we're going to end up with a large make file with lots of repetitive
+rules to compile each c file individually. There's gotta be a better way to do that right?<br>
+You bet there is. Here's a new makefile that will handle a list of files to compile:<br>
+<pre>
+CFLAGS = -c -O2
+THUMBMODEL = -mthumb -mthumb-interwork
+LIST = main.o music.o
+
+all: myRom.gba
+
+myRom.gba: myRom.elf
+	objcopy -O binary myRom.elf myRom.gba
+
+myRom.elf: $(LIST)
+	$(CC) -o myRom.elf $(LIST)
+
+$(LIST): %.o: %.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) $<
+</pre>
+
+The LIST variable lists the .o files needed to be compiled and linked to the final rom. In the
+myRom.elf rule, you see that it's used both as the source files for the target and as part of the
+command line to compile the .elf file. The last rule is the interesting one. Whats happening here
+is we are telling make to handle multiple targets (main.o music.o). This lets make process more
+than one file with the same command line. In the rule, we are telling make: "For every .o file,
+give me the same name with the .c extension". This tells make for main.o, we want to compile main.c,
+and for music.o, compile music.c. In the command line, we're using the $< variable, which is
+the input file I want to compile. This variable is a special make variable, which is shorthand for
+whats to the right of the colon in the rule. It will have the value of whats in the %.c bit in the
+rule. Now if you wanted to add more C files to the project, all you have to do is add the file to
+the LIST variable, and the rest is taken care for you. Pretty neat eh? Stick around, there's even
+more powerful uses of this feature.
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Rules"></a>Defining Rules</th>
+<tr><td>
+When writing makefiles, you will have to tell make what to actually do. Thats where you
+write "rules" to tell make how to go on building your project. A rule is always:<br>
+<pre>
+target: prerequisite
+	command(s) to execute
+</pre>
+Prerequisite means that in order to build the target, the prerequisite files must exist, or make
+will look in the makefile for a rule to build the prerequisites. In the previous section,
+I showed you how to compile a GBA rom and wrote a few rules to compile a C file. There's
+more to it. Rules also tell make that if the target is out of date (it doesnt exist or is older
+than the prerequisite files) it will go ahead and build the target. If the files are up to date,
+then the rule is skipped to speed up compile times. This is one of the beauties of make, allowing for
+fast builds of roms when you work on complex projects. <br>
+The order of rules in the makefile do not matter, as long as make knows what the goal of the
+complete process is. If you read the <a href="#Example">Simple Example</a> section, you probably
+noticed the first rule was <br>
+<pre>
+all: myRom.gba
+</pre>
+This is usually the very first thing you write in a makefile, it tells make the goal of the
+makefile is to produce myRom.gba. You can also use the all rule to build more than one goal:<br>
+<pre>
+all: myRom1.gba myRom2.gba
+</pre>
+This will let you build more than one rom, providing you have rules to make the 2 roms. Could be
+useful to build something like Pokemon, where you have 2 versions like Pokemon Ruby and Sapphire, and
+both roms share the same code, but small differences require building more than one file.<br>
+Rules can specify more than one prerequisite for the target. Doing so ensures that the target
+file is rebuilt if any of the prerequisites were recently changed:
+<pre>
+main.o: main.c gba.h spitedata.h
+	$(CC) $(CFLAGS) ($THUMBMODEL) main.c
+</pre>
+This rule will ensure that main.o is rebuilt if main.c, gba.h, or spritedata.h were recently
+modified.<br>
+As mentioned in the <a href="#Example">Simple Example</a>, commands must be indented with a tab
+so make knows that it is a command to execute for the rule. Note that you can also have more
+than one command for a rule, like so:<br>
+<pre>
+myRom.gba: myRom.elf
+	objcopy -O binary myRom.elf myRom.gba
+	gbafix myRom.gba -tMYROM -cMYRM -mMM -r1
+</pre>
+Here I included a command to fix the gba rom header (a necessary step if you wish to load the rom
+to a flash cart). When myRom.gba is built, both commands will be executed in the order shown.<br>
+You can also create phony targets. These are good for running commands that dont relate to anything else
+in your makefile. For example you'd like to clean your directory of all intermediate files:<br>
+<pre>
+clean:
+	rm -f *.elf
+	rm -f *.o
+</pre>
+To run the rule, you just type "make clean", and all the .o and .elf files in the directory will be deleted.<br>
+
+Another cool feature of make is "pattern rules". With pattern rules, you can have make work on
+a group of files in one rule:<br>
+<pre>
+%.o: %.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) $<
+</pre>
+Think of pattern rules as wildcards. The example here will generate a .o file for every .c file
+in your directory. The %.c bit matches all files with the .c extension, and %.o will create a target for
+each .c file found in the directory. For example, main.c would build main.o, music.c would build music.o, etc.
+You can do other wildcard matches like:<br>
+<pre>
+rpg.%.o: rpg.%.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) $<
+</pre>
+This will compile any rpg.*.c file into the corresponding .o file. The $< is called an
+"automatic variable", which is something make provides when working with wildcard matches. In this
+case, $< is the value of the prerequisite (rpg.%.c in this case). There are other automatic variables, I'll touch on those
+later.
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Variables"></a>Defining Variables</th>
+<tr><td>
+If you read the <a href="#Example">Simple Example</a> section, we touched briefly on how to
+define variables to help us simplify tasks later on in the makefile. Here I'll show you some
+other cool things that can be done.<br>
+<br>
+You'll probably run into a case where you need to compile or convert groups of files, but
+treat each group with different commandlines. For example, say you want to compile the files
+main.c, music.c and sprites.c in the thumb model, but you have some fast routines that need
+the arm cpu model in fastsort.c and fastmath.c. The list rule I showed you earlier would work
+for thumb only, so we would need a second list of files to compile specifically for the arm
+instruction set:<br>
+<pre>
+CFLAGS = -c -O2
+THUMBMODEL = -mthumb -mthumb-interwork
+ARMMODEL = -marm -mthumb-interwork
+
+THUMBLIST: main.o music.o sprites.o
+ARMLIST: fastsort.o fastmath.o
+
+all: myRom.gba
+
+myRom.gba: myRom.elf
+	objcopy -O binary myRom.elf myRom.gba
+
+myRom.elf: $(THUMBLIST) $(ARMLIST)
+	$(CC) -o myRom.elf $(THUMBLIST) $(ARMLIST)
+
+$(THUMBLIST): %.o: %.c
+	$(CC) $(CFLAGS) $(THUMBMODEL) $<
+
+$(ARMLIST): %.o: %.c
+	$(CC) $(CFLAGS) $(ARMMODEL) $<
+</pre>
+Notice how there are 2 lists in the .elf rule, and added a new rule to handle compiling the arm based files.
+See how nice and neat that is? If you had done a rule for every single .C file, the makefile
+will quickly become difficult to maintain.<br>
+<br>
+Now suppose we want to convert a large series of bmp files to binary data? Say we had 60 images
+of a rendered sprite animation, saved in sequence like: frame1.bmp, frame2.bmp, etc. We could
+create another list variable and rule to convert them, but now we end up having to type every
+single filename in the list variable. Again, another case of monotonous typing and hard to maintain
+code. Or is it?<br>
+<pre>
+BMPLIST = $(patsubst %.bmp, %.o, $(wildcard frame*.bmp))
+
+$(BMPLIST): %.o: %.bmp
+	cog /b4 /d0 /x16 /y16 $(patsubst %.o, /o%, $@) $<
+</pre>
+Wow..what the hell happened :). Well, make supports all sorts of neat things like wildcard matching
+and pattern substitution. The $(wildcard frame*.bmp) will search the current directory for all files
+that match the pattern 'frame*.bmp' and build a string with all the filenames found. The patsubst bit
+takes the filenames found by wildcard and changes the extension from .bmp to .o.<br>
+patsubst is the pattern substitution function:
+<pre>
+patsubst &lt;replace pattern&gt;, &lt;search pattern&gt;, &lt;search string&gt;
+</pre>
+So for every bmp file thats returned from wildcard in BMPLIST, we replace the .bmp extension with .o and
+BMPLIST becomes: frame1.o frame2.o frame3.o, etc.
+Now for the rule. The first part looks familiar, we take all the .o files listed in BMPLIST and convert
+them to .o files. Again you see the patsubst function in there. This is because of the /o paramter for
+cog, it expects a base identifier for its output files, so I use patsubst to take the .o filename,
+and strip the .o extension from it. Youll also notice another strange variable, $@. This is the
+shorthand symbol for the whats on the left side of the colon in the rule. So say we were processing
+frame2.bmp, $@ = frame2.o, $< = frame2.bmp. <br>
+The beauty of all this is now we can build a list of files easily, convert them all with one rule,
+and all at the cost of 3 lines of code. There is more you can do with variables, but if you want
+to go that far, I suggest heading over to <a href="http://www.gnu.org/manual/make-3.80/html_chapter/make_toc.html">Make's documentation website</a>.
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Recursive"></a>Recursive Makefiles</th>
+<tr><td>
+When you need to manage a large project, it's sometimes a good idea to seperate files into
+seperate subdirectories. Problem with that is, now that files are located in different paths,
+your makefile also has to have the pathnames in it. But there is a simpler way to do it: you
+can have a makefile in each subdirectory to process the files in it. Now you're thinking, great,
+I have to cd to each subdirectory and type make. Nope. You can run the whole process from a makefile
+in the parent directory. Lets say you have your source files in your root dir, and graphics data
+in a seperate directory called resource. <br>
+<pre>
+CFLAGS = -c -O2
+SFLAGS = -c -mthumb-interwork
+LDFLAGS = -nostartfiles -T lnkscript
+STRIP = objcopy -O binary
+
+TMODEL = -mthumb -mthumb-interwork
+AMODEL = -marm -mthumb-interwork
+
+CTHUMB	= main.o interupts.o ARMcode.o piecedata.o pieces.o
+CARM	=
+SLIST 	= crt0.o visoly.o pucrunch.o
+LIST = $(SLIST) $(CTHUMB) $(CARM) krawall.lib resource/resource.a
+
+ROM = tiltris.gba
+ELF = tiltris.elf
+
+all: $(ROM)
+
+$(ROM): $(ELF)
+	$(STRIP) $< $@
+	gbafix $(ROM) -tTILTRIS -cTILT -mMM -r1
+
+$(ELF): $(LIST)
+	$(CC) -mthumb-interwork -o $(ELF) $(LIST) $(LDFLAGS)
+
+$(SLIST): %.o: %.s
+	$(CC) $(SFLAGS) $<
+
+$(CTHUMB): %.o: %.c
+	$(CC) $(CFLAGS) $(TMODEL) $<
+
+$(CARM): %.o: %.c
+	$(CC) $(CFLAGS) $(AMODEL) $<
+
+resource/resource.a:
+	$(MAKE) -C resource
+</pre>
+Theres a lot going on in this file, but it uses a lot of the concepts that were described earlier.
+Note the last rule: <br>
+<pre>
+resource/resource.a:
+	$(MAKE) -C resource
+</pre>
+$(MAKE) is another predefined variable in make, it is the name of the make executable. The -C subdir flag in
+make will cd to the subdir, and run make inside that dir. In this case, the makefile in resource/ will generate
+resource.a, which is linked into the elf file before producing the final rom. A neat feature of running make
+recursively: the variables defined in the calling makefile will be exported to the subdir's makefile, so you
+dont have to redefine everything.
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0>
+<th bgcolor=#96B9FD><a name="Conditional"></a>Conditional Processing</th>
+<tr><td>
+
+There will be times where you might need to compile files differently depending on a condition.
+For example, the graphic conversion utility, CoG (<a href="http://www.onemanband.com">Converter of Graphics</a>),
+is available for free, but does not support exporting of object files or compression unless you register the app.
+I released a small GBA demo that has a makfile using either version of cog. Let me show you the makefile for
+that project to show you an example of conditional processing.
+<a href="http://66.230.226.73/~bigredp/MrMister/tweakmode.zip">Download the demo and its source.</a><br>
+<pre>
+#define COGREG here, 0 for unregistered version, 1 for registered version
+COGREG = 0
+
+all: resource.a
+
+resource.a: icelogo3.o title.o
+	ar -rc resource.a icelogo3.o title.o
+
+
+icelogo3.o: icelogo3.bmp
+ifeq ($(COGREG), 1)
+	cog /d4 /FO /gCLV /pCLV /oicelogo3 icelogo3.bmp
+else
+	cog /d4 /gU /pU /oicelogo3 icelogo3.bmp
+	gcc -c -mthumb-interwork icelogo3.c
+endif
+
+
+title.o: title.bmp
+ifeq ($(COGREG), 1)
+	cog /b4 /d0 /lG64 /LG32 /FO /z /gCLV /pCLV /mCLV /otitle title.bmp
+else
+	cog /b4 /d0 /lG64 /LG32 /z /gU /pU /mU /otitle title.bmp
+	gcc -c -mthumb-interwork title.c
+endif
+</pre>
+Here we define a variable called COGREG which will be used to determine if we compile with
+the registered version of cog (COGREG=1) or unregistered (COGREG=0). <br>
+<pre>
+title.o: title.bmp
+ifeq ($(COGREG), 1)
+	cog /b4 /d0 /lG64 /LG32 /FO /z /gCLV /pCLV /mCLV /otitle title.bmp
+else
+	cog /b4 /d0 /lG64 /LG32 /z /gU /pU /mU /otitle title.bmp
+	gcc -c -mthumb-interwork title.c
+endif
+</pre>
+Here we test if COGREG = 1. If so we run cog so it produces title.o with compressed graphic data.
+If its not equal to 1, then we run cog to generate C source (the default) and run gcc to compile the c
+file into title.o. Same goes for the icelogo3.o rule. This ensures that I can distribute the
+source for the rom and not have people complain about modifying the makefile for registered/unregitered
+versions of cog. There are other conditional directives, I suggest going to <a href="http://www.gnu.org/manual/make-3.80/html_chapter/make_toc.html">Make's documentation website</a>
+for research.<br>
+<br>
+
+</td></tr></table>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0 width=100%>
+<th bgcolor=#96B9FD><a name="Links"></a>Links</th>
+<tr><td>
+Here's some useful links for make and gba development in general:
+<li><a href="http://www.gnu.org/manual/make-3.80/html_chapter/make_toc.html">Make's documentation website</a>
+<li><a href="http://gbadev.org">gbadev.org, has a very nice documentation section and developer forum</a>
+<li><a href="http://devrs.com/gba">devrs.com, another good website with loads of documentation and FAQ pages</a>
+<li><a href="http://thepernproject.com">The Pern Project, excellent tutorials site on graphics modes for the GBA</a>
+<li><a href="http://gbaemu.com">GBAEmu.com, emulation, hardware and news site for everything GBA related</a>
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>
+
+<br><br>
+
+<table border=0 width=100%>
+<th bgcolor=#96B9FD><a name="Credits"></a>Credits</th>
+<tr><td>
+And some props to the people on #gbadev and #cog who helped me out while writing this tutorial:
+<li>BigRedPimp
+<li>Dovoto
+<li>Visage
+<li>Torlus
+<li>OneManBand
+<br>
+and others I know I'm forgetting, but lent a hand during the writing of this tutorial.
+</td></tr></table>
+<br>
+<a href="#Top">Back to the Table of Contents</a>

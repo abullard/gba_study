@@ -34,8 +34,13 @@ static inline void decimalToBinary(int num)
 
 int main(void)
 {
-    int y = 6 | (6 << 5) | (6 << 10);
-    decimalToBinary(y);
+    int x = 23, y = 23, sum = 0, i;
+
+    for(i = 0; i < x; i++)
+        sum += y;
+
+    printf("%d \n", sum);
+    decimalToBinary(sum);
 
     printf("\n\nterminating...\n");
     return 0;

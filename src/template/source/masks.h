@@ -6,6 +6,14 @@
 #define DCNT_OBJ 0x1000    //!< Enable objects
 #define DCNT_OBJ_1D 0x0040 //!< OBJ-VRAM as array
 #define DCNT_BG0 0x0100    //!< OBJ-VRAM as array
+#define DCNT_BG1 0x0200    //!< OBJ-VRAM as array
+#define DCNT_BG2 0x0400    //!< OBJ-VRAM as array
+#define DCNT_BG3 0x0800    //!< OBJ-VRAM as array
+
+#define DCTL_BG_PRIORITY_FIRST 0x0000
+#define DCTL_BG_PRIORITY_SECOND 0x0001
+#define DCTL_BG_PRIORITY_THIRD 0x0002
+#define DCTL_BG_PRIORITY_FOURTH 0x0003
 
 // OBJ_ATTR.attr0{8-9} defines
 #define ATTR0_OBJ_MODE_REGULAR 0x0000
