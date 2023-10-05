@@ -2,8 +2,10 @@
 #include "cat_player.h"
 #include <string.h>
 
-u8 movementSpeed = 2;
-u16 playerX = 96, playerY = 32;
+u8 movementSpeed_g = 1;
+u16 playerX_g = 96, playerY_g = 32; // starting coords
+u16 g_gravity = 10, airborn_g = 0;  // 10 m/s for simplicity and no floats
+s16 velocity_g = 0;
 
 OBJ_ATTR *playerSpriteOamLocation;
 
@@ -11,17 +13,25 @@ void handleMovement(OBJ_ATTR *player)
 {
     if (keyHeld(KEY_LEFT))
     {
-        playerX += movementSpeed * -1;
+        playerX_g += movementSpeed_g * -1;
         flipTileHorizontally(playerSpriteOamLocation, ATTR1_HORIZONTAL_FLIP);
     }
 
     if (keyHeld(KEY_RIGHT))
     {
-        playerX += movementSpeed * 1;
+        playerX_g += movementSpeed_g * 1;
         flipTileHorizontally(playerSpriteOamLocation, ATTR1_NO_HORIZONTAL_FLIP);
     }
 
-    setTilePosition(playerSpriteOamLocation, playerX, playerY);
+    // if(airborn_g == 1) {
+    //     v
+    // }
+
+    setTilePosition(playerSpriteOamLocation, playerX_g, playerY_g);
+}
+
+void gravity(OBJ_ATTR *localOamBuffer)
+{
 }
 
 OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
@@ -47,7 +57,7 @@ OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
                         ATTR1_SIZE_32x32,                               // 32x32 pixel sprite
                         pal_bank << 12 | tile_id));
 
-    setTilePosition(playerSpriteOamLocation, playerX, playerY);
+    setTilePosition(playerSpriteOamLocation, playerX_g, playerY_g);
 
     return playerSpriteOamLocation;
 }

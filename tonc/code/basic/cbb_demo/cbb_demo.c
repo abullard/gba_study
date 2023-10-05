@@ -22,8 +22,8 @@ void load_tiles()
 
 	// Loading tiles. don't get freaked out on how it looks
 	// 4-bit tiles to blocks 0 and 1
-	tileVRAM[0][1]= tl[1];		tileVRAM[0][2]= tl[2];
-	tileVRAM[1][0]= tl[3];		tileVRAM[1][1]= tl[4];
+	tile_mem[0][1]= tl[1];		tile_mem[0][2]= tl[2];
+	tile_mem[1][0]= tl[3];		tile_mem[1][1]= tl[4];
 	// and the 8-bit tiles to blocks 2 though 5
 	tile8_mem[2][1]= tl8[1];	tile8_mem[2][2]= tl8[2];
 	tile8_mem[3][0]= tl8[3];	tile8_mem[3][1]= tl8[4];
@@ -33,7 +33,7 @@ void load_tiles()
 	// And let's not forget the palette (yes, obj pal too)
 	u16 *src= (u16*)ids4Pal;
 	for(ii=0; ii<16; ii++)
-		pal_bg_mem[ii]= paletteVRAM[ii]= *src++;
+		pal_bg_mem[ii]= pal_obj_mem[ii]= *src++;
 }
 
 void init_maps()

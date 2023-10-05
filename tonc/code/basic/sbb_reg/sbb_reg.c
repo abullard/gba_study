@@ -13,7 +13,7 @@
 #define X_CENTER 15
 #define Y_CENTER 10
 
-BG_POINT bg0_pt= { 0, 0 };
+BG_POINT bg1_pt= { 0, 0 };
 SCR_ENTRY *bg0_map= se_mem[SBB_0];
 
 // what do we need to find the SE index for???
@@ -83,14 +83,14 @@ int main()
 		vid_vsync();
 
 		key_poll();
-		bg0_pt.x += key_tri_horz();
-		bg0_pt.y += key_tri_vert();
+		bg1_pt.x += key_tri_horz();
+		bg1_pt.y += key_tri_vert();
 
 		// Testing bg_se_id()
 		// If all goes well the cross should be around the center of
 		// the screen at all times.
-		tx = ((bg0_pt.x >> 3) + X_CENTER) & 0x3F;
-		ty = ((bg0_pt.y >> 3) + Y_CENTER) & 0x3F;
+		tx = ((bg1_pt.x >> 3) + X_CENTER) & 0x3F;
+		ty = ((bg1_pt.y >> 3) + Y_CENTER) & 0x3F;
 
 		// i think pitch is 64 here because there are 64 8x8 screen enteries,
 		// and the player is an 8x8 screen entry. So instead of the pitch being in pixels, 
@@ -105,7 +105,7 @@ int main()
 			se_prev = se_curr;
 		}
 
-		REG_BG_OFS[0] = bg0_pt; // write new position
+		REG_BG_OFS[0] = bg1_pt; // write new position
 	}
 	return 0;
 }

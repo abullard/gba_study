@@ -6,6 +6,7 @@
 #include "tiles.h"
 
 void handleMovement(OBJ_ATTR *);
+void gravity(OBJ_ATTR *);
 OBJ_ATTR *initPlayer(OBJ_ATTR *);
 
 #endif // __PLAYERCONTROLLER__
