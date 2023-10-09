@@ -1,11 +1,11 @@
 // source code I wrote
 #include "input.h"
-#include "types.h"
 #include "helpers.h"
-#include "registerAndMemoryLocations.h"
-#include "masks.h"
-#include "playerController.h"
-#include "background.h"
+#include "playerController/playerController.h"
+#include "graphics/background.h"
+#include "defines/types.h"
+#include "defines/registerAndMemoryLocations.h"
+#include "defines/masks.h"
 
 OBJ_ATTR localOamBuffer[128];
 u16 __key_curr, __key_prev;

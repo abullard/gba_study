@@ -25,7 +25,10 @@
         "bg_externs.h": "c",
         "background.h": "c",
         "link.h": "c",
-        "kakariko.h": "c"
+        "kakariko.h": "c",
+        "tonc.h": "c",
+        "tonc_irq.h": "c",
+        "playercontroller.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

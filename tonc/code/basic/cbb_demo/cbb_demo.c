@@ -27,6 +27,8 @@ void load_tiles()
 	// and the 8-bit tiles to blocks 2 though 5
 	tile8_mem[2][1]= tl8[1];	tile8_mem[2][2]= tl8[2];
 	tile8_mem[3][0]= tl8[3];	tile8_mem[3][1]= tl8[4];
+	// these tiles do not show because this is OBJ_VRAM (sprite CBB{4-5}), 
+	// not BG_VRAM (tileVRAM{0-3}) (mGBA will not show these, same as gba hardware)
 	tile8_mem[4][0]= tl8[5];	tile8_mem[4][1]= tl8[6];
 	tile8_mem[5][0]= tl8[7];	tile8_mem[5][1]= tl8[8];
 

@@ -1,7 +1,7 @@
-#include "registerAndMemoryLocations.h"
-#include "masks.h"
+#include "../defines/registerAndMemoryLocations.h"
+#include "../defines/masks.h"
 #include "BG_Externs.h"
-#include "input.h"
+#include "../input.h"
 
 #include <string.h>
 
@@ -16,9 +16,9 @@ void scrollPlatforms();
 
 static inline u32 findScreenEntryIndex(u32 tileX, u32 tileY, u32 pitch)
 {
-	u32 sbb = ((tileX >> 5) + (tileY >> 5) * (pitch >> 5));
+    u32 sbb = ((tileX >> 5) + (tileY >> 5) * (pitch >> 5));
 
-	return sbb * 1024 + ((tileX & 31) + (tileY & 31) * 32);
+    return sbb * 1024 + ((tileX & 31) + (tileY & 31) * 32);
 }
 
 static inline void setBackgroundOffset(s8 bgIndex, BG_POINT bgCoords)

@@ -22,10 +22,12 @@ include $(DEVKITARM)/gba_rules
 #---------------------------------------------------------------------------------
 TARGET		:= $(notdir $(CURDIR))
 BUILD		:= build
-SOURCES		:= source
+SOURCES		:= source $(sort $(dir $(wildcard source/*/))) 
 INCLUDES	:= include
 DATA		:=
 MUSIC		:=
+# TODO AJB: add this back in to link tonc's library to our code, but you have to remove the duplicate declrations first.
+# LIBGBA		:= $(CURDIR)/../../tonc/code/tonclib
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -113,6 +115,7 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 .PHONY: $(BUILD) clean
 
 #---------------------------------------------------------------------------------
+
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
