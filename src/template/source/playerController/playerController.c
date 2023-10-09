@@ -1,5 +1,5 @@
 #include "playerController.h"
-#include "../graphics/cat_player.h"
+#include "../graphics/objects/cat_player.h"
 #include <string.h>
 
 u8 movementSpeed_g = 1;

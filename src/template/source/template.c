@@ -3,9 +3,9 @@
 #include "helpers.h"
 #include "playerController/playerController.h"
 #include "graphics/background.h"
-#include "defines/types.h"
-#include "defines/registerAndMemoryLocations.h"
-#include "defines/masks.h"
+#include "include/types.h"
+#include "include/registerAndMemoryLocations.h"
+#include "include/masks.h"
 
 OBJ_ATTR localOamBuffer[128];
 u16 __key_curr, __key_prev;

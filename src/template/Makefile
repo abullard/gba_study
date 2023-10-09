@@ -22,7 +22,10 @@ include $(DEVKITARM)/gba_rules
 #---------------------------------------------------------------------------------
 TARGET		:= $(notdir $(CURDIR))
 BUILD		:= build
-SOURCES		:= source $(sort $(dir $(wildcard source/*/))) 
+
+# $(find) "*.c" files and grab only the $(dir)'s off of the resulting list, then $(sort).
+SOURCES		:= $(sort $(dir $(shell find . -name "*.c"))) 
+
 INCLUDES	:= include
 DATA		:=
 MUSIC		:=

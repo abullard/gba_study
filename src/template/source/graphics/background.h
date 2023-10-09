@@ -1,6 +1,6 @@
-#include "../defines/registerAndMemoryLocations.h"
-#include "../defines/masks.h"
-#include "BG_Externs.h"
+#include "../include/registerAndMemoryLocations.h"
+#include "../include/masks.h"
+#include "tiles/BG_Externs.h"
 #include "../input.h"
 
 #include <string.h>

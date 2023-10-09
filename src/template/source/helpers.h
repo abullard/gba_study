@@ -1,9 +1,9 @@
 #ifndef __HELPERS__
 #define __HELPERS__
 
-#include "defines/types.h"
-#include "defines/masks.h"
-#include "defines/registerAndMemoryLocations.h"
+#include "include/types.h"
+#include "include/masks.h"
+#include "include/registerAndMemoryLocations.h"
 
 void oamInit(OBJ_ATTR *);
 void copyBufferToOam(OBJ_ATTR *, OBJ_ATTR *, u16);

@@ -2,7 +2,7 @@
 #define __INPUT__
 
 #include "helpers.h"
-#include "defines/masks.h"
+#include "include/masks.h"
 
 extern u16 __key_curr, __key_prev;
 

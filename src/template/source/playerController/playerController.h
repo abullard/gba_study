@@ -1,7 +1,7 @@
 #ifndef __PLAYERCONTROLLER__
 #define __PLAYERCONTROLLER__
 
-#include "../defines/types.h"
+#include "../include/types.h"
 #include "../input.h"
 #include "../tiles.h"
 
