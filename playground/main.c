@@ -34,13 +34,30 @@ static inline void decimalToBinary(int num)
 
 int main(void)
 {
-    int x = 23, y = 23, sum = 0, i;
+    s16 gravity_g = 0x0120, gravity_accel_g = 0x0020;
 
-    for(i = 0; i < x; i++)
-        sum += y;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
+    gravity_g += gravity_accel_g;
 
-    printf("%d \n", sum);
-    decimalToBinary(sum);
+    // decimalToBinary(gravity_g);
+    printf("%d \n", gravity_g >> 8);
 
     printf("\n\nterminating...\n");
     return 0;

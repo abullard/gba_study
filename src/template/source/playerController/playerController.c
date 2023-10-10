@@ -2,15 +2,18 @@
 #include "../graphics/objects/cat_player.h"
 #include <string.h>
 
-u8 movementSpeed_g = 1;
-u16 playerX_g = 96, playerY_g = 32; // starting coords
-u16 g_gravity = 10, airborn_g = 0;  // 10 m/s for simplicity and no floats
-s16 velocity_g = 0;
+u8 movementSpeed_g = 1;                           // 1m/s, or 32 pixels with my determined scale??
+u16 playerX_g = 96, playerY_g = 32;               // starting coords
+s16 gravity_g = 0x0020, gravity_accel_g = 0x0010; // fixed point 1.125
+u16 max_gravity_g = 2;
+s16 is_airborn_g = 0;
 
 OBJ_ATTR *playerSpriteOamLocation;
 
 void handleMovement(OBJ_ATTR *player)
 {
+    gravity();
+
     if (keyHeld(KEY_LEFT))
     {
         playerX_g += movementSpeed_g * -1;
@@ -23,15 +26,28 @@ void handleMovement(OBJ_ATTR *player)
         flipTileHorizontally(playerSpriteOamLocation, ATTR1_NO_HORIZONTAL_FLIP);
     }
 
-    // if(airborn_g == 1) {
-    //     v
-    // }
+    if (keyHit(KEY_A))
+    {
+        // JUMP
+        is_airborn_g ^= 1;
+    }
 
     setTilePosition(playerSpriteOamLocation, playerX_g, playerY_g);
 }
 
-void gravity(OBJ_ATTR *localOamBuffer)
+void gravity()
 {
+    if (is_airborn_g == 1)
+    {
+        // has gravity reached maximum speed?
+        if ((gravity_g >> 8) < 2)
+        {
+            // increasing gravity by 1.5 with integer truncation
+            gravity_g += gravity_accel_g;
+        }
+
+        playerY_g += (gravity_g >> 8); // integer truncation of fixed point fractional bits
+    }
 }
 
 OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
