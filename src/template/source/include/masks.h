@@ -41,8 +41,11 @@
 // TODO AJB: to be frank, i don't know what these do yet.
 #define ATTR0_POS_Y_MASK 0x00FF // attr0{0-7}, hence 0x00FF, 1111 1111
 #define ATTR0_POS_Y_SHIFT 0x0000
+#define ATTR0_POS_Y(n) ((n) << ATTR0_POS_Y_SHIFT)
+
 #define ATTR1_POS_X_MASK 0x01FF // attr1{0-8}, hence 0x01FF, 0001 1111 1111
 #define ATTR1_POS_X_SHIFT 0x0000
+#define ATTR1_POS_X(n) ((n) << ATTR1_POS_X_SHIFT)
 
 // OBJ_ATTR.attr1{12} defines
 // if you want to turn off HFLIP just XOR it with itself
@@ -51,6 +54,7 @@
 
 #define ATTR1_HFLIP_MASK 0x1000
 #define ATTR1_HFLIP_SHIFT 12 // shift 12 bits in to align with attr1
+#define ATTR1_HFLIP(n) ((n) << ATTR1_HFLIP_SHIFT)
 
 // OBJ_ATTR.attr1{13} defines
 #define ATTR1_VERTICAL_FLIP 0x2000
