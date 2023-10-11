@@ -3,15 +3,15 @@
 
 #include <string.h>
 
-s32 playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16.16fp
-s32 playerVelocity_fp_g = 0x0001F000;
-s32 gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
+s32_t playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16.16fp
+s32_t playerVelocity_fp_g = 0x0001F000;
+s32_t gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
 
 int isAirborn_g = 0;
 
-OBJ_ATTR *playerSpriteOamLocation;
+OBJ_ATTR_t *playerSpriteOamLocation_g;
 
-void handleMovement(OBJ_ATTR *player)
+void handleMovement(OBJ_ATTR_t *player)
 {
     gravity();
 
@@ -53,7 +53,7 @@ void gravity()
     playerY_fp_g += gravity_fp_g;
 }
 
-OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
+OBJ_ATTR_t *initPlayer(OBJ_ATTR_t *localOamBuffer)
 {
     // charblock 0-3 (tile_mem[0-3]) are for background data
     // charblock 4-5 (tile_mem[4-5]) are for sprite data
@@ -63,16 +63,16 @@ OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
 
     oamInit(localOamBuffer);
 
-    u32 tile_id = 0, pal_bank = 0;
-    playerSpriteOamLocation = getAttrsForTile(localOamBuffer, 0);
+    u32_t tile_id = 0, pal_bank = 0;
+    playerSpriteOamLocation_g = getAttrsForTile(localOamBuffer, 0);
 
-    setAttrsForTile(playerSpriteOamLocation,
+    setAttrsForTile(playerSpriteOamLocation_g,
                     createObjectAttribute(
                         ATTR0_OBJ_MODE_REGULAR | ATTR0_COLOR_MODE_8BPP, // square sprite
                         ATTR1_SIZE_32x32,                               // 32x32 pixel sprite
                         pal_bank << 12 | tile_id));
 
-    setTilePosition(playerSpriteOamLocation, playerX_fp_g, playerY_fp_g);
+    setTilePosition(playerSpriteOamLocation_g, playerX_fp_g, playerY_fp_g);
 
-    return playerSpriteOamLocation;
+    return playerSpriteOamLocation_g;
 }

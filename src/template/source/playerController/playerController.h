@@ -5,8 +5,8 @@
 #include "../include/input.h"
 #include "../include/tiles.h"
 
-void handleMovement(OBJ_ATTR *);
+void handleMovement(OBJ_ATTR_t *);
 void gravity();
-OBJ_ATTR *initPlayer(OBJ_ATTR *);
+OBJ_ATTR_t *initPlayer(OBJ_ATTR_t *);
 
 #endif // __PLAYERCONTROLLER__

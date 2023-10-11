@@ -7,12 +7,11 @@
 #include "include/registerAndMemoryLocations.h"
 #include "include/masks.h"
 
-OBJ_ATTR localOamBuffer[128];
-u16 __key_curr, __key_prev;
+OBJ_ATTR_t localOamBuffer_g[128];
 
 void gameLoop()
 {
-	OBJ_ATTR *player = initPlayer(localOamBuffer);
+	OBJ_ATTR_t *player = initPlayer(localOamBuffer_g);
 
 	while (1)
 	{
@@ -27,7 +26,7 @@ void gameLoop()
 		handleMovement(player);
 
 		// apparently we only need to update 1 or something?
-		copyBufferToOam(oamRAM, localOamBuffer, 1);
+		copyBufferToOam(oamRAM, localOamBuffer_g, 1);
 	}
 }
 

@@ -1,12 +1,12 @@
 #include "background.h"
 
-const u16 bg0_se_idx = 24;
-const u16 bg1_se_idx = 26;
-const u16 bg2_se_idx = 28;
-const u16 bg3_se_idx = 30;
+const u16_t bg0_se_idx = 24;
+const u16_t bg1_se_idx = 26;
+const u16_t bg2_se_idx = 28;
+const u16_t bg3_se_idx = 30;
 
-BG_POINT bg1_pt = {0, 0};
-BG_POINT bg2_pt_parallaxed = {0, 96};
+BG_POINT_t bg1_pt = {0, 0};
+BG_POINT_t bg2_pt_parallaxed = {0, 96};
 
 void initMap()
 {

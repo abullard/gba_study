@@ -13,8 +13,9 @@
 //	( http://www.coranac.com/projects/#grit )
 //
 //======================================================================
+#include "../../include/types.h"
 
-const unsigned short cat_playerTiles[512] __attribute__((aligned(4)))=
+const u16_t cat_playerTiles[512] __attribute__((aligned(4)))=
 {
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
 	0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,0x0000,
@@ -89,7 +90,7 @@ const unsigned short cat_playerTiles[512] __attribute__((aligned(4)))=
 	0x0C07,0x0407,0x0007,0x0000,0x1307,0x0706,0x0706,0x0000,
 };
 
-const unsigned short cat_playerPal[256] __attribute__((aligned(4)))=
+const u16_t cat_playerPal[256] __attribute__((aligned(4)))=
 {
 	0x0000,0x2529,0x56AD,0x77BD,0x1CE7,0x5AD6,0x39CE,0x0421,
 	0x4A73,0x4E94,0x6318,0x318C,0x4210,0x7FFF,0x4A38,0x52B5,

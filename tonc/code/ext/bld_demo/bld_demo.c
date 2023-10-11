@@ -12,6 +12,9 @@
 #include <tonc.h>
 #include "metr.h"
 
+extern const char _ctype_[];
+const char *__ctype_ptr__ = _ctype_;
+
 void test_blend()
 {
 	tte_printf("#{P:48,8}obj#{P:168,8}bg");
@@ -48,23 +51,23 @@ void test_blend()
 		mode= clamp(mode, 0, 4);
 
 		tte_printf("#{es;P}mode :\t%2d\neva :\t%2d\nevb :\t%2d\ney :\t%2d",
-			mode, eva/8, evb/8, ey/8);
+			mode, eva >> 3, evb >> 3, ey >> 3);
 		
 		// Update blend mode
 		BFN_SET(REG_BLDCNT, mode, BLD_MODE);
 
 		// Update blend weights
-		REG_BLDALPHA= BLDA_BUILD(eva/8, evb/8);
-		REG_BLDY= BLDY_BUILD(ey/8);
+		REG_BLDALPHA= BLDA_BUILD(eva >> 3, evb >> 3);
+		REG_BLDY= BLDY_BUILD(ey >> 3);
 	}	
 }
 
 void load_metr()
 {
 	// copy sprite and bg tiles, and the sprite palette
-	memcpy32(&tileVRAM[2][0], metrTiles, metrTilesLen/4);
-	memcpy32(&tileVRAM[4][0], metrTiles, metrTilesLen/4);
-	memcpy32(paletteVRAM, metrPal, metrPalLen/4);
+	memcpy32(&tile_mem[2][0], metrTiles, metrTilesLen/4);
+	memcpy32(&tile_mem[4][0], metrTiles, metrTilesLen/4);
+	memcpy32(pal_obj_mem, metrPal, metrPalLen/4);
 
 	// Set the metroid sprite
 	obj_set_attr(&oam_mem[0], ATTR0_SQUARE | ATTR0_BLEND | ATTR0_Y(24), 
@@ -73,7 +76,7 @@ void load_metr()
 	// Create the metroid bg using inverted palette for bg-metroid
 	int ix, iy;
 	for(ix=0; ix<16; ix++)
-		pal_bg_mem[ix+16]= paletteVRAM[ix] ^ CLR_WHITE;
+		pal_bg_mem[ix+16]= pal_obj_mem[ix] ^ CLR_WHITE;
 
 	SCR_ENTRY *pse= &se_mem[30][3*32+18];	// right-center
 	for(iy=0; iy<8; iy++)
@@ -92,7 +95,7 @@ void load_fence()
 		0x00012000, 0x00012000, 0x00022200, 0x22220222,
 		0x11122211, 0x00112000, 0x00012000, 0x00012000,
 	}};
-	tileVRAM[2][64]= fence;
+	tile_mem[2][64]= fence;
 
 	se_fill(se_mem[29], 64);
 

@@ -5,10 +5,10 @@
 #include "include/masks.h"
 #include "include/registerAndMemoryLocations.h"
 
-void oamInit(OBJ_ATTR *);
-void copyBufferToOam(OBJ_ATTR *, OBJ_ATTR *, u16);
+void oamInit(OBJ_ATTR_t *);
+void copyBufferToOam(OBJ_ATTR_t *, OBJ_ATTR_t *, u16_t);
 
-OBJ_ATTR createObjectAttribute(u16, u16, u16);
+OBJ_ATTR_t createObjectAttribute(u16_t, u16_t, u16_t);
 
 static inline void vsync()
 {
@@ -22,7 +22,7 @@ static inline void vsync()
     };
 }
 
-static inline s16 clamp(s16 value, int min, int max)
+static inline s16_t clamp(s16_t value, int min, int max)
 {
     return (value > max) ? max : (value < min) ? min
                                                : value;
