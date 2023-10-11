@@ -1,8 +1,8 @@
 #ifndef __INPUT__
 #define __INPUT__
 
-#include "helpers.h"
-#include "include/masks.h"
+#include "../helpers.h"
+#include "masks.h"
 
 extern u16 __key_curr, __key_prev;
 

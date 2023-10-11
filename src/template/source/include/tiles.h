@@ -1,8 +1,8 @@
 #ifndef __TILES__
 #define __TILES__
 
-#include "include/types.h"
-#include "include/masks.h"
+#include "types.h"
+#include "masks.h"
 
 static inline OBJ_ATTR *getAttrsForTile(OBJ_ATTR *buffer, u16 index)
 {

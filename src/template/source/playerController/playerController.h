@@ -2,8 +2,8 @@
 #define __PLAYERCONTROLLER__
 
 #include "../include/types.h"
-#include "../input.h"
-#include "../tiles.h"
+#include "../include/input.h"
+#include "../include/tiles.h"
 
 void handleMovement(OBJ_ATTR *);
 void gravity();

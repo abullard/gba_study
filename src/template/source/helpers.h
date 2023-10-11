@@ -22,4 +22,10 @@ static inline void vsync()
     };
 }
 
+static inline s16 clamp(s16 value, int min, int max)
+{
+    return (value > max) ? max : (value < min) ? min
+                                               : value;
+}
+
 #endif // __HELPERS__

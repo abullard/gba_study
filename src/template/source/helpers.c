@@ -12,7 +12,7 @@ void oamInit(OBJ_ATTR *localOamBuffer)
     while (i--)
     {
         *ptrToLocalBuffer++ = ATTR0_OBJ_MODE_HIDE; // write first 32 bits of data to localOamBuffer includes `10`
-        *ptrToLocalBuffer++ = 0;          // write an empty second set of bits to localOamBuffer
+        *ptrToLocalBuffer++ = 0;                   // write an empty second set of bits to localOamBuffer
     }
 
     copyBufferToOam(oamRAM, localOamBuffer, __loc_oam_buf_size);
@@ -37,12 +37,13 @@ void copyBufferToOam(OBJ_ATTR *destination, OBJ_ATTR *localBuffer, u16 count)
 #endif
 }
 
-OBJ_ATTR createObjectAttribute(u16 a0, u16 a1, u16 a2) {
+OBJ_ATTR createObjectAttribute(u16 a0, u16 a1, u16 a2)
+{
     OBJ_ATTR objectAttributes;
-	objectAttributes.attr0 = a0;
-	objectAttributes.attr1 = a1; 
-	objectAttributes.attr2 = a2;
+    objectAttributes.attr0 = a0;
+    objectAttributes.attr1 = a1;
+    objectAttributes.attr2 = a2;
     // the last u16 is filler to align with OBJ_AFFINE
-    
+
     return objectAttributes;
 }

@@ -118,6 +118,10 @@
 #define BG_SBB_SHIFT 8
 #define BG_SBB(n) ((n) << BG_SBB_SHIFT)
 
+#define FIXED_POINT_SHIFT 16
+#define GET_FIXEDP_INT(n) ((n) >> FIXED_POINT_SHIFT)
+#define GET_FIXEDP_FRAC(n) ((u16)n)
+
 #define BITFIELD_SHIFT(bitsToUse, name) ((bitsToUse << name##_SHIFT) & name##_MASK)
 
 // AJB: we use the currMask & 1's complmenet (~) of name##_MASK for the bits we care about to set all bits we want to

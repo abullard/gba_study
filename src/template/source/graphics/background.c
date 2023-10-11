@@ -38,7 +38,7 @@ void initMap()
 void scrollPlatforms()
 {
     bg1_pt.x += keyTriHorz();
-    bg1_pt.y += keyTriVert();
+    bg1_pt.x = clamp(bg1_pt.x, 0, 0x10);
 
     setBackgroundOffset(1, bg1_pt);
 }
@@ -60,5 +60,5 @@ void skyboxParallax()
     // 	bg2_pt_parallaxed.x -= 1;
     // }
 
-    setBackgroundOffset(2, bg2_pt_parallaxed);
+    // setBackgroundOffset(2, bg2_pt_parallaxed);
 }

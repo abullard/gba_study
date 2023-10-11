@@ -8,6 +8,7 @@ typedef signed char s8;
 typedef unsigned short u16;
 typedef signed short s16;
 typedef unsigned int u32;
+typedef signed int s32;
 
 typedef u16 COLOR;
 typedef u16 SCREEN_ENTRY;
@@ -26,10 +27,8 @@ typedef struct
 	u32 data[8];
 } TILE, TILE4;
 
-// 16kB of data
-typedef TILE CHARBLOCK[512];
-
-typedef SCREEN_ENTRY SCREENBLOCK[1024];
+typedef TILE CHARBLOCK[512];			// 16kB of data
+typedef SCREEN_ENTRY SCREENBLOCK[1024]; // 16kB of data
 
 // 64 bits of memory, last 16 bits help align OBJ_ATTR WITH OBJ_AFFINE,
 // since these data structures overlap
@@ -41,7 +40,8 @@ typedef struct
 	u16 fill;
 } ALIGN_WORD OBJ_ATTR;
 
-typedef struct {
+typedef struct
+{
 	COLOR colors[16];
 } PALETTE;
 

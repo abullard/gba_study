@@ -33,8 +33,7 @@ void tmr_test()
 		if(REG_TM3D != sec)
 		{
 			sec= REG_TM3D;
-			tte_printf("#{es;P:24,60}%02d:%02d:%02d", 
-				sec/3600, (sec%3600)/60, sec%60);
+
 		}
 
 		if(key_hit(KEY_START))	// pause by disabling timer
@@ -48,8 +47,8 @@ void tmr_test()
 int main()
 {
 	// set-up berk font
-	tte_init_se(0, BG_CBB(0)|BG_SBB(31), 1, 0, 0, &berkFont, se_drawg);
-	tte_init_con();
+	// tte_init_se(0, BG_CBB(0)|BG_SBB(31), 1, 0, 0, &berkFont, se_drawg);
+	// tte_init_con();
 	memcpy16(pal_bg_mem, berkPal, berkPalLen/4);
 
 	REG_DISPCNT= DCNT_MODE0 | DCNT_BG0;

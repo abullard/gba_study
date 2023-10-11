@@ -13,6 +13,9 @@
 
 // --- bmp16, bmp8, chr4 slideshow demos ---
 
+extern const char _ctype_[];
+const char* __ctype_ptr__ = _ctype_;
+
 void test_chr4c_slide();
 void test_bmp16_slide();
 void test_bmp8_slide();

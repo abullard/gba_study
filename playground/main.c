@@ -7,7 +7,7 @@ typedef unsigned short u16;
 typedef unsigned int u32;
 typedef signed short s16;
 
-static inline void decimalToBinary(int num)
+static inline void decimalToBinary(u16 num)
 {
     if (num == 0)
     {
@@ -30,34 +30,23 @@ static inline void decimalToBinary(int num)
     {
         printf("%d", binaryNum[j] ? binaryNum[j] : 0);
     }
+
+    printf("\n");
+}
+static inline void printInt(u16 num)
+{
+    printf("printInt: %d \n", num);
 }
 
 int main(void)
 {
-    s16 gravity_g = 0x0120, gravity_accel_g = 0x0020;
+    u16 x = 0xFFFF;
+    decimalToBinary(x);
+    printInt(x);
 
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-    gravity_g += gravity_accel_g;
-
-    // decimalToBinary(gravity_g);
-    printf("%d \n", gravity_g >> 8);
+    u16 y = (u16)(0xFFFF >> 7);
+    decimalToBinary(y);
+    printInt(y);
 
     printf("\n\nterminating...\n");
     return 0;

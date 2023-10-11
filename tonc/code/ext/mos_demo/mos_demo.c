@@ -13,6 +13,9 @@
 #include <tonc.h>
 #include "metr.h"
 
+extern const char _ctype_[];
+const char* __ctype_ptr__ = _ctype_;
+
 void test_mosaic()
 {
 	tte_printf("#{P:48,8}obj#{P:168,8}bg");
@@ -49,9 +52,9 @@ void load_metr()
 {
 	int ix, iy;
 
-	memcpy32(&tileVRAM[1][0], metrTiles, metrTilesLen/4);
-	memcpy32(&tileVRAM[4][0], metrTiles, metrTilesLen/4);
-	memcpy32(paletteVRAM, metrPal, metrPalLen/4);
+	memcpy32(&tile_mem[1][0], metrTiles, metrTilesLen/4);
+	memcpy32(&tile_mem[4][0], metrTiles, metrTilesLen/4);
+	memcpy32(pal_obj_mem, metrPal, metrPalLen/4);
 
 	// create object: oe0
 	OBJ_ATTR *metr= &oam_mem[0];
@@ -60,7 +63,7 @@ void load_metr()
 
 	// create bg map: bg1, cbb1, sbb 31
 	for(ix=1; ix<16; ix++)
-		pal_bg_mem[ix+16]= paletteVRAM[ix] ^ CLR_WHITE;
+		pal_bg_mem[ix+16]= pal_obj_mem[ix] ^ CLR_WHITE;
 
 	SCR_ENTRY *pse= &se_mem[30][3*32+18];	// right-center
 	for(iy=0; iy<8; iy++)

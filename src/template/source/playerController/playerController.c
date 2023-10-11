@@ -1,12 +1,13 @@
 #include "playerController.h"
 #include "../graphics/objects/cat_player.h"
+
 #include <string.h>
 
-u8 movementSpeed_g = 1;                           // 1m/s, or 32 pixels with my determined scale??
-u16 playerX_g = 96, playerY_g = 32;               // starting coords
-s16 gravity_g = 0x0020, gravity_accel_g = 0x0010; // fixed point 1.125
-u16 max_gravity_g = 2;
-s16 is_airborn_g = 0;
+u16 playerX_g = 15, playerY_g = 100;
+
+s32 playerVelocity_fp_g = 0x00000100;  // 1 in 8.8f
+s32 gravity_fp_g = 0x00002000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
+int isAirborn_g = 0;
 
 OBJ_ATTR *playerSpriteOamLocation;
 
@@ -16,55 +17,53 @@ void handleMovement(OBJ_ATTR *player)
 
     if (keyHeld(KEY_LEFT))
     {
-        playerX_g += movementSpeed_g * -1;
+        playerX_g += GET_FIXEDP_INT(playerVelocity_fp_g) * -1;
         flipTileHorizontally(playerSpriteOamLocation, ATTR1_HORIZONTAL_FLIP);
     }
 
     if (keyHeld(KEY_RIGHT))
     {
-        playerX_g += movementSpeed_g * 1;
+        playerX_g += GET_FIXEDP_INT(playerVelocity_fp_g) * 1;
         flipTileHorizontally(playerSpriteOamLocation, ATTR1_NO_HORIZONTAL_FLIP);
     }
 
     if (keyHit(KEY_A))
     {
-        // JUMP
-        is_airborn_g ^= 1;
+        // TODO AJB: JUMP
+        isAirborn_g ^= 1;
+        gravity_fp_g = 0x00002000; // reset gravity to init
     }
 
+    // TODO AJB: check for collision?
     setTilePosition(playerSpriteOamLocation, playerX_g, playerY_g);
 }
 
 void gravity()
 {
-    if (is_airborn_g == 1)
-    {
-        // has gravity reached maximum speed?
-        if ((gravity_g >> 8) < 2)
-        {
-            // increasing gravity by 1.5 with integer truncation
-            gravity_g += gravity_accel_g;
-        }
+    if (isAirborn_g == 0)
+        return;
 
-        playerY_g += (gravity_g >> 8); // integer truncation of fixed point fractional bits
+    if (GET_FIXEDP_INT(gravity_fp_g) < maxGravity_g)
+    {
+        // increasing gravity by .125
+        gravity_fp_g += gravityAccel_fp_g;
     }
+
+    // integer truncation of fixed point fractional bits
+    playerY_g += GET_FIXEDP_INT(gravity_fp_g);
 }
 
 OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
 {
-    // let's load our graphic into memory
     // charblock 0-3 (tile_mem[0-3]) are for background data
     // charblock 4-5 (tile_mem[4-5]) are for sprite data
     memcpy(&tileVRAM[4][0], cat_playerTiles, cat_playerTilesLen);
     // sprites won't render if we don't load the palette
     memcpy(objPaletteVRAM, cat_playerPal, cat_playerPalLen);
 
-    // set OAM to hide sprites at first
     oamInit(localOamBuffer);
 
-    // straight up just stole this from tonc
     u32 tile_id = 0, pal_bank = 0;
-
     playerSpriteOamLocation = getAttrsForTile(localOamBuffer, 0);
 
     setAttrsForTile(playerSpriteOamLocation,

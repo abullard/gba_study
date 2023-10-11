@@ -1,7 +1,8 @@
 #include "../include/registerAndMemoryLocations.h"
 #include "../include/masks.h"
 #include "tiles/BG_Externs.h"
-#include "../input.h"
+#include "../include/input.h"
+#include "../helpers.h"
 
 #include <string.h>
 
@@ -21,7 +22,7 @@ static inline u32 findScreenEntryIndex(u32 tileX, u32 tileY, u32 pitch)
     return sbb * 1024 + ((tileX & 31) + (tileY & 31) * 32);
 }
 
-static inline void setBackgroundOffset(s8 bgIndex, BG_POINT bgCoords)
+static inline void setBackgroundOffset(int bgIndex, BG_POINT bgCoords)
 {
     if (bgIndex < 0 || bgIndex > 3)
     {
