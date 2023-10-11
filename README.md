@@ -1,3 +1,10 @@
+NOTES:
+* All code in ./src/template is written/copied&pasted by _me_ for _my_ Gameboy Advanced (GBA) ROM creation
+* All code in ./tonc is the example code & libraries that _J Vijn_ provides for _their_ [GBA development tutorial](http://coranac.com/tonc/text/toc.htm)
+  * Some of these ROMs won't compile through gcc's ARM compiler without first defining `__ctype_ptr__` in that ROMs source. See this [example](https://github.com/abullard/gba_study/blob/main/tonc/code/ext/bld_demo/bld_demo.c#L15-L16)
+  * This code is much too valuable to not commit. There are workable/running examples for all major hardware concepts on the GBA
+* You will see commits in both places as I work through examples, refactor sections for readability, etc
+
 # Settting up a Gameboy Advanced development environment
 NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-gameboy-advance-dev-workflow-in-2020/) *from James Grimwood published March 01, 2020*
 
