@@ -3,6 +3,7 @@
 
 #include "types.h"
 #include "masks.h"
+#include "macros.h"
 
 static inline OBJ_ATTR_t *getAttrsForTile(OBJ_ATTR_t *buffer, u16_t index)
 {

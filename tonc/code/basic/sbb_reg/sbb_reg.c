@@ -13,8 +13,8 @@
 #define X_CENTER 15
 #define Y_CENTER 10
 
-BG_POINT bg1_pt= { 0, 0 };
-SCR_ENTRY *bg0_map= se_mem[SBB_0];
+BG_POINT bg1_pt = {0, 0};
+SCR_ENTRY *bg0_map = se_mem[SBB_0];
 
 // what do we need to find the SE index for???
 // I think we can just black box this for now
@@ -41,8 +41,14 @@ void init_map()
 	const TILE tiles[2] =
 		{
 			// the whole 8x8p obj is black, and adding a 1 fills it with the palettes color
-			{{0x11111111, 0x01111111, 0x01111111, 0x01111111,
+			// my original assumptions about this are wrong. These are 4bpp hex numbers
+			// i.e. tiles[0][0] = 0001 0001 0001 0001 0001 0001 0001 0001, each nibble points to a color in the 
+			// color palette for this tile
+			{{0x2F11F11F,
+			  0x01111111, 0x01111111, 0x01111111,
 			  0x01111111, 0x01111111, 0x01111111, 0x00000001}},
+
+			// cross starts here
 			{{0x00000000, 0x00100100, 0x01100110, 0x00011000,
 			  0x00011000, 0x01100110, 0x00100100, 0x00000000}},
 		};
@@ -53,6 +59,10 @@ void init_map()
 
 	// create a palette
 	pal_bg_bank[0][1] = RGB15(31, 0, 0);
+	// AJB: I added more colors here and changed the above tile, Line 46, to demonstrate that each nibble of
+	// the tile's pixels points to a different color in the palette for that tile
+	pal_bg_bank[0][2] = CLR_MAG;	// nibbles in tiles[0][0] that are 2, point to magenta in the 0th color palette
+	pal_bg_bank[0][15] = CLR_WHITE; // nibbles in tiles[0][0] that are F, point to white in the 0th color palette
 	pal_bg_bank[1][1] = RGB15(0, 31, 0);
 	pal_bg_bank[2][1] = RGB15(0, 0, 31);
 	pal_bg_bank[3][1] = RGB15(16, 16, 16);
@@ -93,15 +103,15 @@ int main()
 		ty = ((bg1_pt.y >> 3) + Y_CENTER) & 0x3F;
 
 		// i think pitch is 64 here because there are 64 8x8 screen enteries,
-		// and the player is an 8x8 screen entry. So instead of the pitch being in pixels, 
+		// and the player is an 8x8 screen entry. So instead of the pitch being in pixels,
 		// we're simplifying the math
 		se_curr = se_index(tx, ty, 64);
 		// se_curr is where the cross rests
 		// se_prev is where the cross was resting
 		if (se_curr != se_prev)
 		{
-			bg0_map[se_prev]--;	// 16b pointer to SE with cross, subtract one back to tile[0]
-			bg0_map[se_curr]++;	// 16b pointer to SE that cross is moving to. Add one, moving to tile[1], so cross renders
+			bg0_map[se_prev]--; // 16b pointer to SE with cross, subtract one back to tile[0]
+			bg0_map[se_curr]++; // 16b pointer to SE that cross is moving to. Add one, moving to tile[1], so cross renders
 			se_prev = se_curr;
 		}
 

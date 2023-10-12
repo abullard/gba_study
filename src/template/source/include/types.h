@@ -25,7 +25,7 @@ typedef struct BG_POINT_t
 typedef struct
 {
 	u32_t
- data[8];
+		data[8];
 } TILE_t, TILE4_t;
 
 typedef TILE_t CHARBLOCK_t[512];			// 16kB of data
@@ -45,5 +45,10 @@ typedef struct
 {
 	COLOR_t colors[16];
 } PALETTE_t;
+
+typedef struct WIN_CORNERS_t
+{
+	u8_t left, top, right, bottom;
+} WIN_CORNERS_t;
 
 #endif // __TYPES__

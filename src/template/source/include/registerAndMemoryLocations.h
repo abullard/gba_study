@@ -34,4 +34,11 @@
 #define REG_BG3HOFS *(vu16_t *)(MEM_IO + 0x001C)
 #define REG_BG3VOFS *(vu16_t *)(MEM_IO + 0x001E)
 
+#define REG_WIN0H *(vu16_t *)(MEM_IO + 0x0040)  //!< win0 right, left (0xLLRR)
+#define REG_WIN1H *(vu16_t *)(MEM_IO + 0x0042)  //!< win1 right, left (0xLLRR)
+#define REG_WIN0V *(vu16_t *)(MEM_IO + 0x0044)  //!< win0 bottom, top (0xTTBB)
+#define REG_WIN1V *(vu16_t *)(MEM_IO + 0x0046)  //!< win1 bottom, top (0xTTBB)
+#define REG_WININ *(vu16_t *)(MEM_IO + 0x0048)  //!< win0, win1 control
+#define REG_WINOUT *(vu16_t *)(MEM_IO + 0x004A) //!< winOut, winObj control
+
 #endif // __REGISTERANDMEMEORYLOCATIONS__

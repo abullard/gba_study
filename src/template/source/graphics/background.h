@@ -3,6 +3,7 @@
 #include "tiles/BG_Externs.h"
 #include "../include/input.h"
 #include "../helpers.h"
+#include "../include/macros.h"
 
 #include <string.h>
 
