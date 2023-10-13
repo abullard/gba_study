@@ -521,7 +521,7 @@
 
 // copies
 #define DMA_CPY16	(DMA_NOW | DMA_16)
-#define DMA_CPY32	(DMA_NOW | DMA_32)
+#define DMA_CPY32	(DMA_NOW | DMA_32) 	// enable the DMA with DMA_NOW and use 32 bit chunk size
 
 // fills
 #define DMA_FILL16	(DMA_NOW | DMA_SRC_FIXED | DMA_16)

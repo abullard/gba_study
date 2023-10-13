@@ -124,6 +124,8 @@ void win_copy()
 	REG_WIN1V = win[1].top << 8 | win[1].bottom;
 }
 
+// all this does is poll for input, and then move the win0 around
+// rewritting where the window is each frame
 void test_win()
 {
 	win_copy();
