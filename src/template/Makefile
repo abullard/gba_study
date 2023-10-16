@@ -36,14 +36,20 @@ MUSIC		:=
 # options for code generation
 #---------------------------------------------------------------------------------
 ARCH	:=	-mthumb -mthumb-interwork
+ARM	:=	-marm -mlong-calls -mthumb-interwork
 
-CFLAGS	:=	-g -Wall -O2\
+RCFLAGS	:=	-g -Wall -O2\
 		-mcpu=arm7tdmi -mtune=arm7tdmi\
 		$(ARCH)
 
-CFLAGS	+=	$(INCLUDE)
+ICFLAGS	:=	-g -Wall -O2\
+		-mcpu=arm7tdmi -mtune=arm7tdmi\
+		$(ARM)
 
-CXXFLAGS	:=	$(CFLAGS) -fno-rtti -fno-exceptions
+RCFLAGS	+=	$(INCLUDE)
+ICFLAGS	+=	$(INCLUDE)
+
+CXXFLAGS	:=	$(RCFLAGS) -fno-rtti -fno-exceptions
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map)
