@@ -24,32 +24,26 @@ TARGET		:= $(notdir $(CURDIR))
 BUILD		:= build
 
 # $(find) "*.c" files and grab only the $(dir)'s off of the resulting list, then $(sort).
-SOURCES		:= $(sort $(dir $(shell find . -name "*.c"))) 
+SOURCES		:= $(sort $(dir $(shell find . -name "*.c" -printf '%P '))) 
 
 INCLUDES	:= include
 DATA		:=
 MUSIC		:=
-# TODO AJB: add this back in to link tonc's library to our code, but you have to remove the duplicate declrations first.
-# LIBGBA		:= $(CURDIR)/../../tonc/code/tonclib
+LIBGBA		:= /opt/devkitpro/libgba
+LIBTONC		:= /opt/devkitpro/libtonc
 
 #---------------------------------------------------------------------------------
 # options for code generation
 #---------------------------------------------------------------------------------
 ARCH	:=	-mthumb -mthumb-interwork
-ARM	:=	-marm -mlong-calls -mthumb-interwork
 
-RCFLAGS	:=	-g -Wall -O2\
+CFLAGS	:=	-g -Wall -O2\
 		-mcpu=arm7tdmi -mtune=arm7tdmi\
 		$(ARCH)
 
-ICFLAGS	:=	-g -Wall -O2\
-		-mcpu=arm7tdmi -mtune=arm7tdmi\
-		$(ARM)
+CFLAGS	+=	$(INCLUDE)
 
-RCFLAGS	+=	$(INCLUDE)
-ICFLAGS	+=	$(INCLUDE)
-
-CXXFLAGS	:=	$(RCFLAGS) -fno-rtti -fno-exceptions
+CXXFLAGS	:=	$(CFLAGS) -fno-rtti -fno-exceptions
 
 ASFLAGS	:=	-g $(ARCH)
 LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map)
@@ -57,14 +51,14 @@ LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map)
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lmm -lgba
+LIBS	:= -lmm -lgba -ltonc
 
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:=	$(LIBGBA)
+LIBDIRS	:= $(LIBGBA) $(LIBTONC)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
@@ -117,7 +111,7 @@ export HFILES := $(addsuffix .h,$(subst .,_,$(BINFILES)))
 
 export INCLUDE	:=	$(foreach dir,$(INCLUDES),-iquote $(CURDIR)/$(dir)) \
 					$(foreach dir,$(LIBDIRS),-I$(dir)/include) \
-					-I$(CURDIR)/$(BUILD)
+					-I$(CURDIR)/$(BUILD) 
 
 export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 

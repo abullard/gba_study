@@ -7,6 +7,8 @@
 #include "include/registerAndMemoryLocations.h"
 #include "include/masks.h"
 
+#include <tonc.h>
+
 OBJ_ATTR_t localOamBuffer_g[128];
 
 void gameLoop()
