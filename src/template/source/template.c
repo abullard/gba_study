@@ -13,8 +13,10 @@ void gameLoop()
 
 	while (1)
 	{
-		// vsync once per frame
-		vsync();
+		// this is vsync, but using a BIOS call with interrupts instead
+		// shut the CPU off while waiting for VBlank
+		VBlankIntrWait();
+
 		// record input once per frame
 		key_poll();
 		
@@ -31,6 +33,9 @@ void gameLoop()
 int main(void)
 {
 	initMap();
+
+	irq_init(NULL);
+	irq_add(II_VBLANK, NULL);
 
 	REG_DISPCNT = DCNT_OBJ_1D | DCNT_OBJ | DCNT_BG2 | DCNT_BG1;
 
