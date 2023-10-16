@@ -1,12 +1,12 @@
 #ifndef __PLAYERCONTROLLER__
 #define __PLAYERCONTROLLER__
 
-#include "../include/types.h"
-#include "../include/input.h"
 #include "../include/tiles.h"
+#include "../graphics/objects/cat_player.h"
+#include "../helpers.h"
 
-void handleMovement(OBJ_ATTR_t *);
+void handleMovement(OBJ_ATTR *);
 void gravity();
-OBJ_ATTR_t *initPlayer(OBJ_ATTR_t *);
+OBJ_ATTR *initPlayer(OBJ_ATTR *);
 
 #endif // __PLAYERCONTROLLER__

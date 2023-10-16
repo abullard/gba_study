@@ -34,7 +34,7 @@
       "options": {
         "cwd": "${workspaceFolder}/src/template"
       },
-      "command": "make && /mnt/d/Games/Emulators/Gba/mGBA-0.9.3-win64/mGBA.exe template.gba"
+      "command": "clear; make && /mnt/d/Games/Emulators/Gba/mGBA-0.9.3-win64/mGBA.exe template.gba"
     }
   ]
 }

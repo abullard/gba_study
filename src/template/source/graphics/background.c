@@ -1,26 +1,27 @@
 #include "background.h"
 
-const u16_t bg0_se_idx = 24;
-const u16_t bg1_se_idx = 26;
-const u16_t bg2_se_idx = 28;
-const u16_t bg3_se_idx = 30;
+const u16 bg0_se_idx = 24;
+const u16 bg1_se_idx = 26;
+const u16 bg2_se_idx = 28;
+const u16 bg3_se_idx = 30;
 
-BG_POINT_t bg1_pt = {0, 0};
-BG_POINT_t bg2_pt_parallaxed = {0, 96};
+BG_POINT bg1_pt = {0, 0};
+BG_POINT bg2_pt_parallaxed = {0, 96};
 
 void initMap()
 {
+    // palette sizes are off here
     memcpy(&bgPaletteVRAM[0], bgSkyboxPalette, bgSkyboxPaletteLen);       // add palette to VRAM
     memcpy(&bgPaletteVRAM[1], bgPlatformsPalette, bgPlatformsPaletteLen); // add palette to VRAM
 
-    memcpy(&tileVRAM[0][0], bgPlatformsTiles, bgPlatformsTilesLen); // add tiles to VRAM
-    memcpy(&tileVRAM[1][0], bgSkyboxTiles, bgSkyboxTilesLen);       // add tiles to VRAM
+    memcpy(&tile_mem[0][0], bgPlatformsTiles, bgPlatformsTilesLen); // add tiles to VRAM
+    memcpy(&tile_mem[1][0], bgSkyboxTiles, bgSkyboxTilesLen);       // add tiles to VRAM
 
-    memcpy(&screenentryVRAM[bg2_se_idx][0], bgSkyboxMap, bgSkyboxMapLen);       // BG 2 (platforms2)
-    memcpy(&screenentryVRAM[bg1_se_idx][0], bgPlatformsMap, bgPlatformsMapLen); // BG 1 (platforms)
+    memcpy(&se_mem[bg2_se_idx][0], bgSkyboxMap, bgSkyboxMapLen);       // BG 2 (platforms2)
+    memcpy(&se_mem[bg1_se_idx][0], bgPlatformsMap, bgPlatformsMapLen); // BG 1 (platforms)
 
-    REG_BG1CTL = BG_SBB(bg1_se_idx) | BG_CBB(0) | BG_REG_32x32 | BG_4BPP | DCTL_BG_PRIORITY_SECOND;
-    REG_BG2CTL = BG_SBB(bg2_se_idx) | BG_CBB(1) | BG_REG_32x32 | BG_4BPP | DCTL_BG_PRIORITY_THIRD;
+    REG_BG1CNT = BG_SBB(bg1_se_idx) | BG_CBB(0) | BG_REG_32x32 | BG_4BPP | BG_PRIO(1);
+    REG_BG2CNT = BG_SBB(bg2_se_idx) | BG_CBB(1) | BG_REG_32x32 | BG_4BPP | BG_PRIO(2);
 
     REG_BG2HOFS = bg2_pt_parallaxed.x;
     REG_BG2VOFS = bg2_pt_parallaxed.y;
@@ -37,7 +38,7 @@ void initMap()
 
 void scrollPlatforms()
 {
-    bg1_pt.x += keyTriHorz();
+    bg1_pt.x += key_tri_horz();
     bg1_pt.x = clamp(bg1_pt.x, 0, 0x10);
 
     setBackgroundOffset(1, bg1_pt);

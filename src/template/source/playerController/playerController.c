@@ -1,33 +1,32 @@
 #include "playerController.h"
-#include "../graphics/objects/cat_player.h"
 
 #include <string.h>
 
-s32_t playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16.16fp
-s32_t playerVelocity_fp_g = 0x0001F000;
-s32_t gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
+s32 playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16.16fp
+s32 playerVelocity_fp_g = 0x0001F000;
+s32 gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
 
 int isAirborn_g = 0;
 
-OBJ_ATTR_t *playerSpriteOamLocation_g;
+OBJ_ATTR *playerSpriteOamLocation_g;
 
-void handleMovement(OBJ_ATTR_t *player)
+void handleMovement(OBJ_ATTR *player)
 {
     gravity();
 
-    if (keyHeld(KEY_LEFT))
+    if (key_held(KEY_LEFT))
     {
         playerX_fp_g += playerVelocity_fp_g * -1;
-        flipTileHorizontally(player, ATTR1_HORIZONTAL_FLIP);
+        flipTileHorizontally(player, ATTR1_HFLIP);
     }
 
-    if (keyHeld(KEY_RIGHT))
+    if (key_held(KEY_RIGHT))
     {
         playerX_fp_g += playerVelocity_fp_g * 1;
-        flipTileHorizontally(player, ATTR1_NO_HORIZONTAL_FLIP);
+        flipTileHorizontally(player, ATTR1_HFLIP & 0x0);
     }
 
-    if (keyHit(KEY_A))
+    if (key_hit(KEY_A))
     {
         // TODO AJB: JUMP
         isAirborn_g ^= 1;
@@ -53,22 +52,22 @@ void gravity()
     playerY_fp_g += gravity_fp_g;
 }
 
-OBJ_ATTR_t *initPlayer(OBJ_ATTR_t *localOamBuffer)
+OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
 {
     // charblock 0-3 (tile_mem[0-3]) are for background data
     // charblock 4-5 (tile_mem[4-5]) are for sprite data
-    memcpy(&tileVRAM[4][0], cat_playerTiles, cat_playerTilesLen);
+    memcpy(&tile_mem[4][0], cat_playerTiles, cat_playerTilesLen);
     // sprites won't render if we don't load the palette
-    memcpy(objPaletteVRAM, cat_playerPal, cat_playerPalLen);
+    memcpy(pal_obj_mem, cat_playerPal, cat_playerPalLen);
 
     oamInit(localOamBuffer);
 
-    u32_t tile_id = 0, pal_bank = 0;
+    u32 tile_id = 0, pal_bank = 0;
     playerSpriteOamLocation_g = getAttrsForTile(localOamBuffer, 0);
 
     setAttrsForTile(playerSpriteOamLocation_g,
                     createObjectAttribute(
-                        ATTR0_OBJ_MODE_REGULAR | ATTR0_COLOR_MODE_8BPP, // square sprite
+                        ATTR0_REG | ATTR0_8BPP, // square sprite
                         ATTR1_SIZE_32x32,                               // 32x32 pixel sprite
                         pal_bank << 12 | tile_id));
 
