@@ -9,6 +9,9 @@
 #include <stdio.h>
 #include <tonc.h>
 
+extern const char _ctype_[];
+const char *__ctype_ptr__ = _ctype_;
+
 // ===DATA ============================================================
 
 u8 txt_scrolly= 8;
@@ -107,7 +110,7 @@ int main()
 			if(key_hit(KEY_DOWN))
 				note_play(NOTE_F, octave);
 			if(key_hit(KEY_A))
-				note_play(NOTE_D, octave);
+				note_play(NOTE_C, octave);
 		}
 
 		// Play ditty

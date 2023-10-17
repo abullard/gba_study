@@ -28,7 +28,8 @@
         "kakariko.h": "c",
         "tonc.h": "c",
         "tonc_irq.h": "c",
-        "playercontroller.h": "c"
+        "playercontroller.h": "c",
+        "filbert_idle.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }
