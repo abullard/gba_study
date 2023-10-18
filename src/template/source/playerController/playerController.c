@@ -6,12 +6,10 @@ s32 playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16
 s32 playerVelocity_fp_g = 0x0001F000;
 s32 gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
 
-int idleAnimationFrame_g = 0;
-
 // booleans, 0 = false, 1 = true
 int isAirborn_g = 0, idle_g = 0, falling_g = 0;
 
-ANIMATION *idleAni; //, *jump, *walk, *run;
+ANIMATION idleAni; //, *jump, *walk, *run;
 
 OBJ_ATTR *playerSpriteOamLocation_g;
 
@@ -85,18 +83,21 @@ OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
 // 4 keyFrames, tileIds [0, 32, 64, 96]
 void initIdleAnimation()
 {
-    idleAni->object = playerSpriteOamLocation_g;
-    idleAni->curFrame = 0;
+    u16 _tileOffset = _multiply(16, 2);
+    
+    idleAni.object = playerSpriteOamLocation_g;
+    idleAni.curFrame = 0;
     // 16 dTiles @ 8bpp, each tile takes 2 nibbles
-    idleAni->tileOffset = _multiply(16, 2);
+    idleAni.tileOffset = _tileOffset;
     // numScreenRefreshesPerKeyFrame * keyFrames,
     // numScreenRefreshesPerKeyFrame = tileOffset in this case, but is not related
-    idleAni->durationInFrames = 128;
+    idleAni.durationInFrames = 128;
+    idleAni.bits = _log2(_tileOffset);
 }
 
 //  0, 32, 64, 96 for idle ani. key frames tile start indexes
 void idleAnimation()
 {
     if (idle_g == 1)
-        nextFrame(idleAni);
+        nextFrame(&idleAni);
 }

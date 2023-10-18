@@ -7,10 +7,11 @@
 typedef struct ANIMATION
 {
     OBJ_ATTR *object;
-    u32 curFrame;
-    u32 durationInFrames;
-    u32 tileOffset;
-} ANIMATION;
+    u16 curFrame;
+    u16 durationInFrames;
+    u16 tileOffset;
+    u16 bits;
+} ALIGN4 ANIMATION;
 
 void nextFrame(ANIMATION *);
 
