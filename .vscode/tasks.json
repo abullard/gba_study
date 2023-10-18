@@ -6,7 +6,7 @@
     {
       "label": "Make",
       "type": "shell",
-      "command": "make",
+      "command": "clear; kill -9 $(pidof mgba-qt); make",
       "group": {
         "kind": "build",
         "isDefault": true
