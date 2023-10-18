@@ -11,6 +11,8 @@ int idleAnimationFrame_g = 0;
 // booleans, 0 = false, 1 = true
 int isAirborn_g = 0, idle_g = 0, falling_g = 0;
 
+ANIMATION *idleAni; //, *jump, *walk, *run;
+
 OBJ_ATTR *playerSpriteOamLocation_g;
 
 void handleMovement(OBJ_ATTR *player)
@@ -19,40 +21,21 @@ void handleMovement(OBJ_ATTR *player)
     idle_g = (moving == 0) ? 1 : 0;
     playerX_fp_g += playerVelocity_fp_g * moving;
 
-    (moving == -1)  ? flipTileHorizontally(player, ATTR1_HFLIP >> 12)
+    (moving == -1)  ? flipTileHorizontally(player, (ATTR1_HFLIP) >> 12)
     : (moving == 1) ? flipTileHorizontally(player, (ATTR1_HFLIP & 0x0) >> 12)
                     : 0;
 
     if (key_hit(KEY_A))
     {
-        idle_g = 0;
         // TODO AJB: JUMP
         isAirborn_g ^= 1;
         gravity_fp_g = 0x00002000; // reset gravity to init
     }
 
     // TODO AJB: check for collision?
-    idleAnimation(4);
+    idleAnimation();
     gravity();
     setTilePosition(player, GET_FIXEDP_INT(playerX_fp_g), GET_FIXEDP_INT(playerY_fp_g));
-}
-
-void idleAnimation(int frames)
-{
-    if (idle_g == 0)
-        return;
-
-    idleAnimationFrame_g += 1;
-    if (idleAnimationFrame_g > 127)
-    {
-        idleAnimationFrame_g = 0;
-    }
-
-    //  0, 32, 64, 96 for idle animation tile spacing
-    setAttrsForTile(playerSpriteOamLocation_g,
-                    createObjectAttribute(playerSpriteOamLocation_g->attr0,
-                                          playerSpriteOamLocation_g->attr1,
-                                          ((idleAnimationFrame_g >> 5) << 5)));
 }
 
 void gravity()
@@ -91,5 +74,29 @@ OBJ_ATTR *initPlayer(OBJ_ATTR *localOamBuffer)
 
     setTilePosition(playerSpriteOamLocation_g, playerX_fp_g, playerY_fp_g);
 
+    initIdleAnimation();
+    // initWalkAnimation();
+    // initRunAnimation();
+    // initJumpAnimation();
+
     return playerSpriteOamLocation_g;
+}
+
+// 4 keyFrames, tileIds [0, 32, 64, 96]
+void initIdleAnimation()
+{
+    idleAni->object = playerSpriteOamLocation_g;
+    idleAni->curFrame = 0;
+    // 16 dTiles @ 8bpp, each tile takes 2 nibbles
+    idleAni->tileOffset = _multiply(16, 2);
+    // numScreenRefreshesPerKeyFrame * keyFrames,
+    // numScreenRefreshesPerKeyFrame = tileOffset in this case, but is not related
+    idleAni->durationInFrames = 128;
+}
+
+//  0, 32, 64, 96 for idle ani. key frames tile start indexes
+void idleAnimation()
+{
+    if (idle_g == 1)
+        nextFrame(idleAni);
 }

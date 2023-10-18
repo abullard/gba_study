@@ -38,15 +38,23 @@ static inline void printInt(u16 num)
     printf("printInt: %d \n", num);
 }
 
+static inline u32 bitwiseLog(u32 n)
+{
+    u32 logValue = 0;
+    while (n > 1)
+    {
+        logValue++;
+        n >>= 1;
+    }
+
+    return logValue;
+}
+
 int main(void)
 {
-    u16 x = 0xFFFF;
-    decimalToBinary(x);
+    u32 x = bitwiseLog(128);
+    decimalToBinary((u16)x);
     printInt(x);
-
-    u16 y = (u16)(0xFFFF >> 7);
-    decimalToBinary(y);
-    printInt(y);
 
     printf("\n\nterminating...\n");
     return 0;

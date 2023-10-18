@@ -29,7 +29,8 @@
         "tonc.h": "c",
         "tonc_irq.h": "c",
         "playercontroller.h": "c",
-        "filbert_idle.h": "c"
+        "filbert_idle.h": "c",
+        "animations.h": "c"
     },
     "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }

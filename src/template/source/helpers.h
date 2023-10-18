@@ -7,16 +7,28 @@ void oamInit(OBJ_ATTR *);
 void copyBufferToOam(OBJ_ATTR *, OBJ_ATTR *, u16);
 OBJ_ATTR createObjectAttribute(u16, u16, u16);
 
-static inline void vsync()
+static inline u32 _multiply(u32 multiplicand, u32 multiplier)
 {
-    // wait for vDraw, we're "drawing" the 68 extra blank vertical scanlines
-    while (REG_VCOUNT >= 160)
+    u32 product = 0, i;
+
+    for (i = 0; i < multiplier; i++)
     {
-    };
-    // wait for vBlank, we're drawing the 160 scanlines at the moment
-    while (REG_VCOUNT < 160)
+        product += multiplicand;
+    }
+
+    return product;
+}
+
+static inline u32 _log2(u32 value)
+{
+    u32 numBits = 0;
+    while (value > 1)
     {
-    };
+        numBits++;
+        value >>= 1;
+    }
+
+    return numBits;
 }
 
 #endif // __HELPERS__
