@@ -1,6 +1,6 @@
-playground/main
+playground
 
-src/template/build
+template/build
 
 *.elf
 *.sav
