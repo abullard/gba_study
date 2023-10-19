@@ -22,15 +22,17 @@ include $(DEVKITARM)/gba_rules
 #---------------------------------------------------------------------------------
 TARGET		:= $(notdir $(CURDIR))
 BUILD		:= build
+GFXLIBS		:= libgfx.a
 
 # $(find) "*.c" files and grab only the $(dir)'s off of the resulting list, then $(sort).
 SOURCES		:= $(sort $(dir $(shell find . -name "*.c" -printf '%P '))) 
-
 INCLUDES	:= include
 DATA		:=
 MUSIC		:=
 LIBGBA		:= /opt/devkitpro/libgba
 LIBTONC		:= /opt/devkitpro/libtonc
+LIBGFX		:= $(CURDIR)/libgfx
+
 
 #---------------------------------------------------------------------------------
 # options for code generation
@@ -51,14 +53,14 @@ LDFLAGS	=	-g $(ARCH) -Wl,-Map,$(notdir $*.map)
 #---------------------------------------------------------------------------------
 # any extra libraries we wish to link with the project
 #---------------------------------------------------------------------------------
-LIBS	:= -lmm -lgba -ltonc
+LIBS	:= -lmm -lgba -ltonc -lgfx
 
 
 #---------------------------------------------------------------------------------
 # list of directories containing libraries, this must be the top level containing
 # include and lib
 #---------------------------------------------------------------------------------
-LIBDIRS	:= $(LIBGBA) $(LIBTONC)
+LIBDIRS	:= $(LIBGBA) $(LIBTONC) $(LIBGFX)
 
 #---------------------------------------------------------------------------------
 # no real need to edit anything past this point unless you need to add additional
@@ -121,12 +123,13 @@ export LIBPATHS	:=	$(foreach dir,$(LIBDIRS),-L$(dir)/lib)
 
 $(BUILD):
 	@[ -d $@ ] || mkdir -p $@
+	@$(MAKE) --no-print-directory -f $(CURDIR)/gfxmake
 	@$(MAKE) --no-print-directory -C $(BUILD) -f $(CURDIR)/Makefile
 
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
-	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba
+	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba $(TARGET).sav
 
 
 #---------------------------------------------------------------------------------
@@ -138,7 +141,7 @@ else
 
 $(OUTPUT).gba	:	$(OUTPUT).elf
 
-$(OUTPUT).elf	:	$(OFILES)
+$(OUTPUT).elf	:	$(OFILES) $(GFXLIBS)
 
 $(OFILES_SOURCES) : $(HFILES)
 

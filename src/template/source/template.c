@@ -1,6 +1,6 @@
 #include "helpers.h"
 #include "playerController/playerController.h"
-#include "graphics/background.h"
+#include "screen/background.h"
 
 #include <tonc.h>
 

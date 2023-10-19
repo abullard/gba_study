@@ -5,3 +5,5 @@ src/template/build
 *.elf
 *.sav
 *.gba
+
+**/*Zone.Identifier
