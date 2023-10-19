@@ -10,7 +10,7 @@
 
 export PATH :=  $(DEVKITARM)/bin:$(PATH)
 
-GRITDIR		:= $(CURDIR)/../../../grit
+GRITDIR		:= $(CURDIR)/../../grit
 GRIT        := $(GRITDIR)/grit.exe
 
 .SUFFIXES:

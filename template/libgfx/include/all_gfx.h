@@ -2,7 +2,7 @@
 // all_gfx.h
 //
 // One header to rule them and in the darkness bind them
-// Date: 2023-10-19 03:56:03 PM
+// Date: 2023-10-19 04:36:59 PM
 
 #ifdef __cplusplus
 extern "C" {
@@ -16,7 +16,7 @@ extern "C" {
 //	+ 64 tiles not compressed
 //	Total size: 8192 = 8192
 //
-//	Time-stamp: 2023-10-19, 15:52:05
+//	Time-stamp: 2023-10-19, 16:36:59
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
