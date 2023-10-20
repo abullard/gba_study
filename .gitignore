@@ -1,6 +1,6 @@
 playground
 
-template/build
+filbert/build
 
 *.elf
 *.sav

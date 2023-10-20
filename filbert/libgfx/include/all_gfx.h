@@ -2,7 +2,7 @@
 // all_gfx.h
 //
 // One header to rule them and in the darkness bind them
-// Date: 2023-10-19 04:36:59 PM
+// Date: 2023-10-19 09:20:54 PM
 
 #ifdef __cplusplus
 extern "C" {
@@ -12,11 +12,12 @@ extern "C" {
 
 //======================================================================
 //
-//	filbert_idle, 32x128@16, 
+//	filbert_idle, 32x128@8, 
+//	+ palette 256 entries, not compressed
 //	+ 64 tiles not compressed
-//	Total size: 8192 = 8192
+//	Total size: 512 + 4096 = 4608
 //
-//	Time-stamp: 2023-10-19, 16:36:59
+//	Time-stamp: 2023-10-19, 21:20:54
 //	Exported by Cearn's GBA Image Transmogrifier, v0.8.6
 //	( http://www.coranac.com/projects/#grit )
 //
@@ -25,8 +26,11 @@ extern "C" {
 #ifndef GRIT_FILBERT_IDLE_H
 #define GRIT_FILBERT_IDLE_H
 
-#define filbert_idleTilesLen 8192
-extern const unsigned int filbert_idleTiles[2048];
+#define filbert_idleTilesLen 4096
+extern const unsigned int filbert_idleTiles[1024];
+
+#define filbert_idlePalLen 512
+extern const unsigned short filbert_idlePal[256];
 
 #endif // GRIT_FILBERT_IDLE_H
 

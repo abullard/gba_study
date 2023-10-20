@@ -9,8 +9,8 @@
       "type": "cppdbg",
       "request": "launch",
       "targetArchitecture": "arm",
-      "program": "${workspaceRoot}/src/template/template.elf",
-      "cwd": "${workspaceRoot}/src/template",
+      "program": "${workspaceRoot}/filbert/filbert.elf",
+      "cwd": "${workspaceRoot}/filbert",
       "args": [],
       "stopAtEntry": false,
       "environment": [],
@@ -21,7 +21,7 @@
         "miDebuggerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb",
         "setupCommands": [
           {
-            "text": "shell \"/usr/games/mgba-qt\" -g4 \"${workspaceRoot}/src/template/template.elf\" &"
+            "text": "shell \"/usr/games/mgba-qt\" -g4 \"${workspaceRoot}/filbert/filbert.elf\" &"
           }
         ]
       },
@@ -32,9 +32,9 @@
     //   "type": "gdb",
     //   "request": "attach",
     //   "gdbpath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb",
-    //   "executable": "./template.elf",
+    //   "executable": "./filbert.elf",
     //   "target": "0.0.0.0:2345",
-    //   "cwd": "${workspaceRoot}/src/template",
+    //   "cwd": "${workspaceRoot}/filbert",
     //   "remote": true,
     //   "valuesFormatting": "parseText"
     // }
