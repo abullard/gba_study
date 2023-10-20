@@ -13,7 +13,7 @@ NOTES:
     * I may drop this down to just mgba-qt with setup instructions in `/documentation`, but mGBA.exe has built in memory/tileset/palette/sprite/etc. investigation windows that mgba-qt doesn't have in debug
 * There are two branches of code here:
     * You will see commits in both places mentioned below as I work through examples, refactor sections for readability, etc
-    * All code in `./src/template` is written/copied&pasted by _me_ for _my_ GBA ROM creation
+    * All code in `./filbert` is written/copied&pasted by _me_ for _my_ GBA ROM creation
     * All code in `./tonc` is the example code & libraries that _Jasper Vijn_ provides for _their_ [GBA development tutorial](http://coranac.com/tonc/text/toc.htm)
         * Some of these ROMs won't compile through gcc's ARM compiler without first defining `__ctype_ptr__` in that ROM's code. See this [example](https://github.com/abullard/gba_study/blob/main/tonc/code/ext/bld_demo/bld_demo.c#L15-L16)
         * This code is much too valuable to not commit. There are workable/running examples for all major hardware concepts on the GBA

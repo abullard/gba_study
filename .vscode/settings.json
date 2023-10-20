@@ -1,36 +1,10 @@
 {
-    "files.associations": {
-        "gba_video.h": "c",
-        "gba_console.h": "c",
-        "gba_base.h": "c",
-        "gba_types.h": "c",
-        "stdint.h": "c",
-        "stdio.h": "c",
-        "gba_pic.h": "c",
-        "toolbox.h": "c",
-        "memmap.h": "c",
-        "memdef.h": "c",
-        "input.h": "c",
-        "metr.h": "c",
-        "gba_input.h": "c",
-        "cstdlib": "c",
-        "typeinfo": "c",
-        "registerandmemorylocations.h": "c",
-        "helpers.h": "c",
-        "types.h": "c",
-        "masks.h": "c",
-        "cat_player.h": "c",
-        "string.h": "c",
-        "tiles.h": "c",
-        "bg_externs.h": "c",
-        "background.h": "c",
-        "link.h": "c",
-        "kakariko.h": "c",
-        "tonc.h": "c",
-        "tonc_irq.h": "c",
-        "playercontroller.h": "c",
-        "filbert_idle.h": "c",
-        "animations.h": "c"
-    },
-    "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
+  "files.associations": {
+    "cstdlib": "c",
+    "typeinfo": "c",
+    "*.grit": "shellscript",
+    "*.h": "c",
+    "*.c": "c"
+  },
+  "C_Cpp.default.compilerPath": "/opt/devkitpro/cmake/devkitARM.cmake"
 }
