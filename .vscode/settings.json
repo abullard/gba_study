@@ -2,7 +2,7 @@
   "files.associations": {
     "cstdlib": "c",
     "typeinfo": "c",
-    "*.grit": "shell",
+    "*.grit": "shellscript",
     "*.h": "c",
     "*.c": "c"
   },
