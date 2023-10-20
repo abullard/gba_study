@@ -29,7 +29,8 @@ include $(DEVKITARM)/base_rules
 # General note: use . for the current dir, don't leave them empty.
 
 BUILD       := build
-GFXDIRS     := libgfx # level1 palmerge smkkarts
+GFXDIRS     := $(sort $(dir $(shell find . -name "*.bmp" -printf '%P '))) 
+GFXDIRS     += $(sort $(dir $(shell find . -name "*.png" -printf '%P '))) 
 GFXLIB      ?= libgfx/lib/libgfx.a
 GFXHDR      ?= $(CURDIR)/../libgfx/include/gfx.h
 
