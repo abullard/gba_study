@@ -2,9 +2,10 @@
 #define __PLAYERCONTROLLER__
 
 #include "../include/tiles.h"
-#include "../screen/objects/filbert_idle.h"
 #include "../helpers.h"
 #include "../screen/animations.h"
+
+#include <gfx.h>
 
 void handleMovement(OBJ_ATTR *);
 void gravity();

@@ -129,6 +129,7 @@ $(BUILD):
 #---------------------------------------------------------------------------------
 clean:
 	@echo clean ...
+	@rm $(LIBGFX)/include/*.h $(LIBGFX)/lib/*.a
 	@rm -fr $(BUILD) $(TARGET).elf $(TARGET).gba $(TARGET).sav
 
 
