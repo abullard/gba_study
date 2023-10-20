@@ -1,9 +1,12 @@
+
+# folders
 playground
-
 filbert/build
+filbert/libgfx/include/*
+filbert/libgfx/lib/*
 
+# files
 *.elf
 *.sav
 *.gba
-
 **/*Zone.Identifier
