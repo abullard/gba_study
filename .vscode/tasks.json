@@ -34,7 +34,7 @@
       "options": {
         "cwd": "${workspaceFolder}/filbert"
       },
-      "command": "clear; make && /mnt/d/Games/Emulators/Gba/mGBA-0.9.3-win64/mGBA.exe filbert.gba"
+      "command": "clear; make && /usr/games/mgba-qt filbert.gba"
     }
   ]
 }

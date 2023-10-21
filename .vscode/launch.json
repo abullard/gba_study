@@ -21,7 +21,7 @@
         "miDebuggerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb",
         "setupCommands": [
           {
-            "text": "shell \"/usr/games/mgba-qt\" -g4 \"${workspaceRoot}/filbert/filbert.elf\" &"
+            "text": "shell /usr/games/mgba-qt -g4 ${workspaceRoot}/filbert/filbert.elf &"
           }
         ]
       },
