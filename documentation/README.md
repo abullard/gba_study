@@ -1,6 +1,18 @@
-# Settting up a Gameboy Advanced development environment
-NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-gameboy-advance-dev-workflow-in-2020/) *from James Grimwood published March 01, 2020*
+# Setting up a Gameboy Advanced (GBA) development environment
 
+| Author | Date Changed | Notes|
+|--------------|-----------|------------|
+| abullard | 09/13/2023 | initial commit |
+| abullard | 10/23/2023 | grit, mgba-qt updates |
+
+### PLEASE READ
+* *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-gameboy-advance-dev-workflow-in-2020/) *from James Grimwood published March 01, 2020*
+* [A Technical Manual for the GBA](https://problemkaputt.de/gbatek.htm)
+* [Tonc](https://www.coranac.com/tonc/text/toc.htm) is a human guided approached to learning the GBA
+    * Please read this and break/fix the example ROMs provided by *Jasper Vijn*, he really did the most for those of us interested in this stuff
+* [GRIT (GBA Raster Image Transmogrifier)](https://www.coranac.com/projects/grit/) a makefile/build-pipeline tool to convert `.bmp/.png/.jpg/etc` files into a linkable C library. This lets you use [Aseprite](https://www.aseprite.org/) for Objects and Backgrounds 0-3.
+
+## IDE Setup
 1. Install Windows Subsystem for Linux (WSL)
    * Open PowerShell as an Admin user and type in
 `Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux`
@@ -16,8 +28,9 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
     * sudo apt install libncurses5
     * sudo apt install xz-utils
     * sudo apt install Python 3
-    * TBD
-    * You'll run into others, install them as you need them
+    * sudo apt install mgba-qt
+        * default path for me was `/usr/games/mgba-qt`, see `/alias_funcs/mkrom.sh`
+    * To Be Determined, you'll run into others, install them as you need them
 
 4. Install [devkitARM](https://github.com/devkitPro/pacman/releases/), you'll need to investigate the releases of this repo on Github to find instructions for a Debian install, as they may have changed.  
     * Currently, you'll need these instructions (the symlink is probably unnessecary):
@@ -30,10 +43,13 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
     ```
     * Select yes on the last command to install gba-dev from devkitPro with pacman
 
-4. Navigate to your codes directory, run `code .` to install/launch VS Code Server.
+5. Navigate to your codes directory, run `code .` to install/launch VS Code Server.
 
-5. Here's a basic `.bashrc` file to save @ `$HOME` in WSL:
+6. Here's a basic `.bashrc` file to save @ `$HOME` in WSL:
     ```
+    # alias bash script imports
+    source $HOME/dev/gba_study/alias_funcs/mkrom.sh
+
     export DEVKITPRO=/opt/devkitpro
     export DEVKITARM=${DEVKITPRO}/devkitARM
     export DEVKITPPC=${DEVKITPRO}/devkitPPC
@@ -43,25 +59,26 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
     # aliases
     alias reload="clear; source $HOME/.bash_profile"
     alias ll="ls -lha"
-    alias editsh="vim $HOME/.bash_profile"
+    alias editsh="vim $HOME/.bashrc"
     alias folder="explorer.exe ."
-    alias gba="cd $HOME/dev/gba; code ."
+    alias gogba="cd $HOME/dev/gba_study"
+    alias mkrom="mkrom"
+    alias play="cd $HOME/dev/gba_study/playground; gcc main.c -o main; ./main"
     ```
-    * alias `gba` will open VS Code to a project folder called `gba`
+    * alias `play` builds main.c and runs `./main`, this is great for quick checks of bitwise operations
+    * check the `/alias_funcs/mkrom` directory in this repository. This is useful for quickly building Tonc's example ROMs and launching them with mgba-qt
 
-6. Open VS Code from WSL, this will be your native development environment
+7. Open VS Code from WSL, this will be your native development environment
     * Install extension [Remote Development extension pack](https://code.visualstudio.com/docs/remote/wsl)
     * Install extension [Native Debug](https://marketplace.visualstudio.com/items?itemName=webfreak.debug)
     * Install extension C/C++ and C/C++ Extension Pack
         * You'll setup your includes and compiler path inside this extenion for Intellisense on header files
     * Set these up according to their docs
 
-7. In WSL navigate to `/opt/devkitpro/examples/gba/template`, and run `cp -r * $HOME/dev/gba/src` to get an example project with a makefile
+8. In WSL navigate to `/opt/devkitpro/examples/gba/template`, and run `cp -r * $HOME/dev/gba/src` to get an example project with a makefile
 
-8. Install [mGBA](https://mgba.io/downloads.html) on your Windows install, we'll create a `tasks.json` file that points to the mounted `/mnt/c` WSL location to run the `mGBA.exe` tool with your ROM.
-
-9. Create the `tasks.json` file, here's James Grimwood's example:
-    * NOTE: make sure `template.gba` to whatever name you gave your ROM
+9. Create the `tasks.json` file, or copy mine from this repository. Located at `.vscode/tasks.json`
+    * NOTE: make sure you update `template.gba` to whatever name you gave your ROM
     ```
     {
         // See https://go.microsoft.com/fwlink/?LinkId=733558
@@ -71,13 +88,13 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
             {
                 "label": "Make",
                 "type": "shell",
-                "command": "make",
+                "command": "clear; kill -9 $(pidof mgba-qt); make",
                 "group": {
                     "kind": "build",
                     "isDefault": true
                 },
                 "options": {
-                    "cwd": "${workspaceFolder}/src/template"
+                    "cwd": "${workspaceFolder}/filbert"
                 }
             },
             {
@@ -85,7 +102,7 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
                 "type": "shell",
                 "command": "make clean",
                 "options": {
-                    "cwd": "${workspaceFolder}/src/template"
+                    "cwd": "${workspaceFolder}/filbert"
                 },
                 "problemMatcher": []
             },
@@ -97,24 +114,30 @@ NOTE: *Following this* [*tutorial*](https://www.gamedev.net/blogs/entry/2268899-
                     "isDefault": true
                 },
                 "options": {
-                    "cwd": "${workspaceFolder}/src/template"
+                    "cwd": "${workspaceFolder}/filbert"
                 },
-                "command": "make && /mnt/d/Games/Emulators/Gba/mGBA-0.9.3-win64/mGBA.exe template.gba"
+                "command": "clear; make && /usr/games/mgba-qt filbert.gba"
             }
         ]
     }
     ```
-10. This is bound to change, so I'm simply noting that you'll need to figure it out. There are some files `.vscode/c_cpp_properties.json` & `.vscode/settings.json` that spell out intellisense properties for C and devkitARM. Properties to be aware of:
+
+10. This is bound to change, so I'm simply noting that you'll need to figure it out. There are some files `.vscode/c_cpp_properties.json` & `.vscode/settings.json` that spell out Intellisense properties for C, devkitARM, and Tonc. Properties to be aware of:
     * `"compilerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gcc"` helps intellisense stop complaining about C header files
-    * the `includePath` tells VS Code where to look for devkitARM GBA headerfiles:
+    * the `includePath` tells VS Code's Intellisense where to look for GBA header files:
     ```
     "includePath": [
-        "${workspaceFolder}/**",
-        "/opt/devkitpro/libgba/**",
-        "/opt/devkitpro/libtonc/**"
+        "/opt/devkitpro/libgba/include",
+        "/opt/devkitpro/libtonc/include",
+        "${workspaceFolder}/filbert/libgfx/include"
     ],
     ```
   NOTE: If you change your `compilerPath`, it may wipe out your `includePath`. I saw this happen, and had my go-to-definition break
+
+11. This isn't necessary to build, but it makes pixel art easier. Install [GRIT (GBA Raster Image Transmogrifier)](https://www.coranac.com/projects/grit/), this is another resource from Tonc. 
+    * You can create sprite assets in Aseprite and drop the exported `.bmp`'s into a directory that converts them to the `libgfx.a` library to link to your ROM, [Learn how here](https://www.coranac.com/man/grit/html/gritmake.htm)
+    * I bundled `grit.exe` with my repository and dropped all the extra stuff. Check `/grit` and any file with a `.grit` extension. This may inform your study.
+    * Make sure you read the documentation!!!! [Here it is again because it's so important for GRIT](https://www.coranac.com/man/grit/html/grit.htm)
 
 ##### Austin Bullard (summarized steps from James Grimwood) on 07/21/2023
 *This document is subject to change, and will probably need refined the next time we install stuff, change it then*

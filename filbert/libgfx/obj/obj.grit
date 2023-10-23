@@ -1,5 +1,6 @@
 #
-# filbert_idle.grit
+# obj.grit
+# GRIT options listed here: https://www.coranac.com/man/grit/html/grit.htm
 #
 
 -gt     #  Tiled graphics output (default).

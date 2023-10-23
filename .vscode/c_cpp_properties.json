@@ -3,7 +3,6 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**",
                 "/opt/devkitpro/libgba/include",
                 "/opt/devkitpro/libtonc/include",
                 "${workspaceFolder}/filbert/libgfx/include"

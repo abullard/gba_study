@@ -1,39 +1,43 @@
 #include "background.h"
 
-const u16 bg0_se_idx = 24;
 const u16 bg1_se_idx = 26;
 const u16 bg2_se_idx = 28;
 const u16 bg3_se_idx = 30;
 
 BG_POINT bg1_pt = {0, 0};
-BG_POINT bg2_pt_parallaxed = {0, 96};
+BG_POINT bg2_pt = {0, 0};
+BG_POINT bg3_pt = {0, 0};
 
 void initMap()
 {
-    // palette sizes are off here
-    memcpy(&bgPaletteVRAM[0], bgSkyboxPalette, bgSkyboxPaletteLen);       // add palette to VRAM
-    memcpy(&bgPaletteVRAM[1], bgPlatformsPalette, bgPlatformsPaletteLen); // add palette to VRAM
+    // TODO AJB:
+    // * palette size is wrong in gfx.h, check grit opts
+    // * load bg data into the right registers
+    // * anything else? it's still broken, you'll need to investigate stuff
 
-    memcpy(&tile_mem[0][0], bgPlatformsTiles, bgPlatformsTilesLen); // add tiles to VRAM
-    memcpy(&tile_mem[1][0], bgSkyboxTiles, bgSkyboxTilesLen);       // add tiles to VRAM
+    // BG 1
+    memcpy(&bgPaletteVRAM[0], lvl1_bg1_bedroomPal, lvl1_bg1_bedroomPalLen);
+    memcpy(&tile_mem[0][0], lvl1_bg1_bedroomTiles, lvl1_bg1_bedroomTilesLen);
+    memcpy(&se_mem[bg1_se_idx][0], lvl1_bg1_bedroomMap, lvl1_bg1_bedroomMapLen);
 
-    memcpy(&se_mem[bg2_se_idx][0], bgSkyboxMap, bgSkyboxMapLen);       // BG 2 (platforms2)
-    memcpy(&se_mem[bg1_se_idx][0], bgPlatformsMap, bgPlatformsMapLen); // BG 1 (platforms)
+    // BG 2
+    memcpy(&bgPaletteVRAM[1], lvl1_bg2_bedroomPal, lvl1_bg2_bedroomPalLen);
+    memcpy(&tile_mem[1][0], lvl1_bg2_bedroomTiles, lvl1_bg2_bedroomTilesLen);
+    memcpy(&se_mem[bg2_se_idx][0], lvl1_bg2_bedroomMap, lvl1_bg2_bedroomMapLen);
+
+    // BG 3
+    memcpy(&bgPaletteVRAM[2], lvl1_bg3_bedroomPal, lvl1_bg3_bedroomPalLen);
+    memcpy(&tile_mem[2][0], lvl1_bg3_bedroomTiles, lvl1_bg3_bedroomTilesLen);
+    memcpy(&se_mem[bg3_se_idx][0], lvl1_bg3_bedroomMap, lvl1_bg3_bedroomMapLen);
 
     REG_BG1CNT = BG_SBB(bg1_se_idx) | BG_CBB(0) | BG_REG_32x32 | BG_4BPP | BG_PRIO(1);
     REG_BG2CNT = BG_SBB(bg2_se_idx) | BG_CBB(1) | BG_REG_32x32 | BG_4BPP | BG_PRIO(2);
+    REG_BG3CNT = BG_SBB(bg3_se_idx) | BG_CBB(2) | BG_REG_32x32 | BG_4BPP | BG_PRIO(3);
 
-    REG_BG2HOFS = bg2_pt_parallaxed.x;
-    REG_BG2VOFS = bg2_pt_parallaxed.y;
-
-    // memcpy(&screenentryVRAM[bg0_se_idx][0], , ); // BG 0 (UI)
-    // memcpy(&screenentryVRAM[bg3_se_idx][0], bg_PlatformsMap, bg_PlatformsMapLen);    // BG 3 (skybox)
-
-    // REG_BG0CTL = BG_SBB(bg0_se_idx) | BG_CBB(0) | BG_REG_64x32 | BG_4BPP | DCTL_BG_PRIORITY_FIRST;
-    // REG_BG3CTL = BG_SBB(bg3_se_idx) | BG_CBB(0) | BG_REG_64x32 | BG_4BPP | DCTL_BG_PRIORITY_FOURTH;
-
-    // REG_BG3HOFS = 0;
-    // REG_BG3VOFS = 0;
+    REG_BG2HOFS = bg2_pt.x;
+    REG_BG2VOFS = bg2_pt.y;
+    REG_BG3HOFS = bg3_pt.x;
+    REG_BG3VOFS = bg3_pt.y;
 }
 
 void scrollPlatforms()

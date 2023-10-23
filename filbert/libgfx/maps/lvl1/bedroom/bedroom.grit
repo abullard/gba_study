@@ -1,0 +1,20 @@
+#
+# bedroom.grit
+# Level 1
+# GRIT options listed here: https://www.coranac.com/man/grit/html/grit.htm
+#
+
+-gt     # Tiled graphics output (default).
+-gB4    # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
+-p      # Include palette in output (default).
+-fh     # Create header file with declarations and array length definitions (using array-name + Len).
+-fts    # Export to GNU assembly arrays. Default output filetype.
+-th8    # Set height of basic tile (default: 8).
+-tw8    # Set width of basic tile (default: 8).
+-U16    # Set all output to use halfword arrays.
+-W1     # Log error messages.
+-gT 0   # Transparent color. The color should be a 16bit BGR color or 24bit RGB color in hex. For truecolor output, all pixels will have the alpha-bit set except this color. For paletted output, this color will be transferred into index 0.
+-m      # Include map in output. Enables tile-mapping of the image.
+-mLf    # Map layout for regular backgrounds. 16-bit entries, but a flat map (i.e., not broken down into screenblocks).
+-gu16   # Graphics data is in halfword arrays.
+-mRt    # Tile reduction option: reduce for unique tiles. Can be combined with p and f reduction options (example: -mRtpf).

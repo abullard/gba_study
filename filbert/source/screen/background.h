@@ -1,9 +1,9 @@
-#include "tiles/BG_Externs.h"
 #include "../helpers.h"
 #include "../include/macros.h"
 #include "../include/memmap.h"
 
 #include <string.h>
+#include <gfx.h>
 
 extern const u16 bg0_se_idx;
 extern const u16 bg1_se_idx;
