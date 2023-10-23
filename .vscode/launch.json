@@ -27,16 +27,5 @@
       },
       "preLaunchTask": "Make"
     }
-    // ,{
-    //   "name": "Debug",
-    //   "type": "gdb",
-    //   "request": "attach",
-    //   "gdbpath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb",
-    //   "executable": "./filbert.elf",
-    //   "target": "0.0.0.0:2345",
-    //   "cwd": "${workspaceRoot}/filbert",
-    //   "remote": true,
-    //   "valuesFormatting": "parseText"
-    // }
   ]
 }
