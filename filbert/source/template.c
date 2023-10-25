@@ -36,7 +36,7 @@ int main(void)
 	irq_init(NULL);
 	irq_add(II_VBLANK, NULL);
 
-	REG_DISPCNT = DCNT_OBJ_1D | DCNT_OBJ | DCNT_BG2 | DCNT_BG1;
+	REG_DISPCNT = DCNT_OBJ_1D | DCNT_OBJ | DCNT_BG3 | DCNT_BG2 | DCNT_BG1;
 
 	gameLoop();
 

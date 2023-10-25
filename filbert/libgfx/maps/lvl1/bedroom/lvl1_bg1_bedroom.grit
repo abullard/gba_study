@@ -19,23 +19,23 @@
 ############### custom options ###############
 
 # graphics opts
--gB 8       # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
+-gB 4       # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
 -gu16       # Graphics data is in halfword arrays.
 -g T0x0000  # Transparent color. The color should be a 16bit BGR color or 24bit RGB color in hex. For truecolor output, all pixels will have the alpha-bit set except this color. For paletted output, this color will be transferred into index 0.
 
 # map opts
 -m          # Include map in output. Enables tile-mapping of the image.
--mLf        # Map layout for regular backgrounds. 16-bit entries, but a flat map (i.e., not broken down into screenblocks).
--mR8        # Tile reduction combo for regular backgrounds with 8bpp tiles: tile, palette and flip reduction.
+-mLs        # Map layout for regular backgrounds. 16-bit entries, broken down into screenblocks.
+-mR4        # Tile reduction combo for regular backgrounds with 4bpp tiles: tile, palette and flip reduction.
+-mp 0       # Forces the palette-bank index to n.
 
 # input/output opts
 -fh         # Create header file with declarations and array length definitions (using array-name + Len).
--fa         # Append to output file instead of overwriting. If data with the symbol name already exists in the file, it will be replaced. Has no effect for binary output.
--S shared   # Base name for symbols for shared data.
--O /home/okizame/dev/gba_study/filbert/libgfx/include/palette   # Output file path for shared data.
 
 # palette opts
--pS         # Shared palette data. The colors of the source bitmaps are merged into a single palette. See also -O and -S. NOTE: will alter the order of the original palette (unless the first bitmap happened to have all the colors in it (hint, hint)). 
+-ps 0       # Starting palette entry. -ps 16 would start the export at color 16. Works together with -pe and -pn.
+-pe 15      # End' palette entry. For example, -pe 32 would output the palette up to, but not including, color 32. Works together with -ps.
+-pn 16      # Number of palette entries. Works together with -ps; overrules -pe.
 
 # misc opts
--W2         # Log errors and warning messages.
+-W1         # Log errors and warning messages.
