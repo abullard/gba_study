@@ -2,7 +2,9 @@
 
 #include <string.h>
 
-s32 playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00640000; // x: 15, y: 100 in 16.16fp
+// player starting coords
+s32 playerX_fp_g = 0x000F0000, playerY_fp_g = 0x00780000; // x: 15, y: 100 in 16.16fp
+
 s32 playerVelocity_fp_g = 0x0001F000;
 s32 gravity_fp_g = 0x00008000, gravityAccel_fp_g = 0x00001000, maxGravity_g = 3;
 
@@ -15,6 +17,8 @@ OBJ_ATTR *playerSpriteOamLocation_g;
 
 void handleMovement(OBJ_ATTR *player)
 {
+    checkScreenEntry();
+    
     int moving = key_tri_horz();
     idle_g = (moving == 0) ? 1 : 0;
     playerX_fp_g += playerVelocity_fp_g * moving;

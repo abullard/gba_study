@@ -13,6 +13,8 @@ extern const u16 bg3_se_idx;
 void initMap();
 void skyboxParallax();
 void scrollPlatforms();
+void checkScreenEntry();
+
 
 static inline u32 findScreenEntryIndex(u32 tileX, u32 tileY, u32 pitch)
 {

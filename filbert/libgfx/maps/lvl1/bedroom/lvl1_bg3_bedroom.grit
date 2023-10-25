@@ -1,0 +1,41 @@
+#
+# level1bedroom.grit
+# GRIT options listed here: https://www.coranac.com/man/grit/html/grit.htm
+#
+
+############### default options ###############
+
+-gt         # Tiled graphics output (default).
+-gz!        # Graphics data is not compressed. (default)
+-p          # Include palette in output (default).
+-pu 16      # Palette data is in halfword arrays (default).
+-pz!        # Palette data is not compressed. (default)
+-th 8       # Set height of basic tile (default: 8).
+-tw 8       # Set width of basic tile (default: 8).
+-mu16       # Map data is in halfword arrays (default).
+-mz!        # Map data is not compressed. (default)
+-fts        # Export to GNU assembly arrays. Default output filetype.
+
+############### custom options ###############
+
+# graphics opts
+-gB 4       # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
+-gu16       # Graphics data is in halfword arrays.
+-g T0x0000  # Transparent color. The color should be a 16bit BGR color or 24bit RGB color in hex. For truecolor output, all pixels will have the alpha-bit set except this color. For paletted output, this color will be transferred into index 0.
+
+# map opts
+-m          # Include map in output. Enables tile-mapping of the image.
+-mLs        # Map layout for regular backgrounds. 16-bit entries, broken down into screenblocks.
+-mR4        # Tile reduction combo for regular backgrounds with 4bpp tiles: tile, palette and flip reduction.
+-mp 2       # Forces the palette-bank index to n.
+
+# input/output opts
+-fh         # Create header file with declarations and array length definitions (using array-name + Len).
+
+# palette opts
+-ps 0       # Starting palette entry. -ps 16 would start the export at color 16. Works together with -pe and -pn.
+-pe 15      # End' palette entry. For example, -pe 32 would output the palette up to, but not including, color 32. Works together with -ps.
+-pn 16      # Number of palette entries. Works together with -ps; overrules -pe.
+
+# misc opts
+-W1         # Log errors and warning messages.
