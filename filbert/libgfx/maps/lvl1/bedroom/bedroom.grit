@@ -1,20 +1,41 @@
 #
-# bedroom.grit
-# Level 1
+# level1bedroom.grit
 # GRIT options listed here: https://www.coranac.com/man/grit/html/grit.htm
 #
 
--gt     # Tiled graphics output (default).
--gB4    # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
--p      # Include palette in output (default).
--fh     # Create header file with declarations and array length definitions (using array-name + Len).
--fts    # Export to GNU assembly arrays. Default output filetype.
--th8    # Set height of basic tile (default: 8).
--tw8    # Set width of basic tile (default: 8).
--U16    # Set all output to use halfword arrays.
--W1     # Log error messages.
--gT 0   # Transparent color. The color should be a 16bit BGR color or 24bit RGB color in hex. For truecolor output, all pixels will have the alpha-bit set except this color. For paletted output, this color will be transferred into index 0.
--m      # Include map in output. Enables tile-mapping of the image.
--mLf    # Map layout for regular backgrounds. 16-bit entries, but a flat map (i.e., not broken down into screenblocks).
--gu16   # Graphics data is in halfword arrays.
--mRt    # Tile reduction option: reduce for unique tiles. Can be combined with p and f reduction options (example: -mRtpf).
+############### default options ###############
+
+-gt         # Tiled graphics output (default).
+-gz!        # Graphics data is not compressed. (default)
+-p          # Include palette in output (default).
+-pu 16      # Palette data is in halfword arrays (default).
+-pz!        # Palette data is not compressed. (default)
+-th 8       # Set height of basic tile (default: 8).
+-tw 8       # Set width of basic tile (default: 8).
+-mu16       # Map data is in halfword arrays (default).
+-mz!        # Map data is not compressed. (default)
+-fts        # Export to GNU assembly arrays. Default output filetype.
+
+############### custom options ###############
+
+# graphics opts
+-gB 8       # Bit depth of the output. Can be 1, 2, 4, 8 or 16. 16 bpp is a truecolor mode, the rest are paletted. If the source image is not of this bitdepth yet, it will be converted.
+-gu16       # Graphics data is in halfword arrays.
+-g T0x0000  # Transparent color. The color should be a 16bit BGR color or 24bit RGB color in hex. For truecolor output, all pixels will have the alpha-bit set except this color. For paletted output, this color will be transferred into index 0.
+
+# map opts
+-m          # Include map in output. Enables tile-mapping of the image.
+-mLf        # Map layout for regular backgrounds. 16-bit entries, but a flat map (i.e., not broken down into screenblocks).
+-mR8        # Tile reduction combo for regular backgrounds with 8bpp tiles: tile, palette and flip reduction.
+
+# input/output opts
+-fh         # Create header file with declarations and array length definitions (using array-name + Len).
+-fa         # Append to output file instead of overwriting. If data with the symbol name already exists in the file, it will be replaced. Has no effect for binary output.
+-S shared   # Base name for symbols for shared data.
+-O /home/okizame/dev/gba_study/filbert/libgfx/include/palette   # Output file path for shared data.
+
+# palette opts
+-pS         # Shared palette data. The colors of the source bitmaps are merged into a single palette. See also -O and -S. NOTE: will alter the order of the original palette (unless the first bitmap happened to have all the colors in it (hint, hint)). 
+
+# misc opts
+-W2         # Log errors and warning messages.

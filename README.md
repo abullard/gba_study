@@ -7,10 +7,8 @@ See `/documentation` for setup instructions on Windows 11 with WSL. This is a li
 If you have any questions or need any advice, feel free to reach out.
 
 NOTES:
-* I have Run bound to `ctrl+f5` and Debug bound to `f5`. Review `/.vscode/tasks.json` and `/.vscode/launch.json` to figure out how to set these up.
-    * Run uses the emulator mGBA.exe to launch.
-    * Debug uses the emulator mgba-qt installed inside WSL using `apt install`
-    * I may drop this down to just mgba-qt with setup instructions in `/documentation`, but mGBA.exe has built in memory/tileset/palette/sprite/etc. investigation windows that mgba-qt doesn't have in debug
+* I have Run bound to `ctrl+f5` and Debug bound to `f5`. `/documentation/README.md` explains all of this.
+    * Run/Debug use the emulator mgba-qt installed inside WSL using `apt install mgba-qt`
 * There are two branches of code here:
     * You will see commits in both places mentioned below as I work through examples, refactor sections for readability, etc
     * All code in `./filbert` is written/copied&pasted by _me_ for _my_ GBA ROM creation
