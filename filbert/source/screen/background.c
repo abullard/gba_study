@@ -50,27 +50,15 @@ void scrollPlatforms()
     setBackgroundOffset(3, bg3_pt);
 }
 
-void checkScreenEntry() 
-{
-    
-}
-
-// keep this for now, you'll want it when there's an actual background
-// TODO AJB: this won't work, you need to move bg2 when bg1 scrolls a certain distance
-// s16 bg2_actual = 0;
-void skyboxParallax()
-{
-    // bg2_actual += keyTriHorz();
-
-    // // naive approach to parallax, if we've moved 10 pixels, move skybox by 1 pixel
-    // if (bg2_actual > 1000) {
-    //     bg2_actual = 0;
-    // 	bg2_pt_parallaxed.x += 1;
-    // }
-    // else if(bg2_actual < 0) {
-    //     bg2_actual = 0;
-    // 	bg2_pt_parallaxed.x -= 1;
-    // }
-
-    // setBackgroundOffset(2, bg2_pt_parallaxed);
-}
+// TODO AJB: find screen entry on every frame, if player moves into 
+// #define X_CENTER 15
+// #define Y_CENTER 10
+// void checkScreenEntry() 
+// {
+//     u32 tx, ty;
+//
+//     tx = ((bg1_pt.x >> 3) + X_CENTER) & 0x3F;
+//     ty = ((bg1_pt.y >> 3) + Y_CENTER) & 0x3F;
+//
+//     u32 se_curr = findScreenEntryIndex(tx, ty, 128);
+// }

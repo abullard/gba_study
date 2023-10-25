@@ -17,7 +17,7 @@ OBJ_ATTR *playerSpriteOamLocation_g;
 
 void handleMovement(OBJ_ATTR *player)
 {
-    checkScreenEntry();
+    // checkScreenEntry();
     
     int moving = key_tri_horz();
     idle_g = (moving == 0) ? 1 : 0;

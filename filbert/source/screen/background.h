@@ -15,7 +15,6 @@ void skyboxParallax();
 void scrollPlatforms();
 void checkScreenEntry();
 
-
 static inline u32 findScreenEntryIndex(u32 tileX, u32 tileY, u32 pitch)
 {
     u32 sbb = ((tileX >> 5) + (tileY >> 5) * (pitch >> 5));
