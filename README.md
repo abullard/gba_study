@@ -1,3 +1,6 @@
+![Filbert ROM screenshot](ROM%20screenshots/filbertROM.png)
+*please note there is a scanline filter enabled on this emulator.* 
+
 Here's my crack at learning embedded development whilst enjoying one of the finer things in life, the Gameboy Advanced (GBA)!
 
 This ROM is still in development.
